@@ -1,0 +1,24 @@
+# This file contains general metadata about the project.
+
+@prefix : <http://usefulinc.com/ns/doap#>.
+@prefix dc:   <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#>.
+
+`Web-Solid-Test-Basic`
+   :programming-language "Perl" ;
+   :shortdesc            "Basic Solid Tests";
+   :homepage             <https://metacpan.org/release/Web-Solid-Test-Basic>;
+   :download-page        <https://metacpan.org/release/Web-Solid-Test-Basic>;
+   :bug-database         <https://github.com/kjetilk/p5-web-solid-test-basic/issues>;
+   :repository           [ a :GitRepository;
+                           :browse <https://github.com/kjetilk/p5-web-solid-test-basic>;
+                           prov:has_provenance <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2Fp5-web-solid-test-basic&serialization=PROV-O#>
+                         ];
+#   :support-forum        <irc://irc.perl.org/#perlrdf> ;
+   :created              2019-04-24;
+   :license              <http://www.opensource.org/licenses/mit-license.php>;
+   :maintainer           cpan:KJETILK;
+   :security-contact     cpan:KJETILK;
+   :developer            cpan:KJETILK.
+
+
