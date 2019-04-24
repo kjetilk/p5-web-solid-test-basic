@@ -1,11 +1,26 @@
+package Web::Solid::Test::Basic;
+
 use 5.010001;
 use strict;
 use warnings;
+use parent 'Test::FITesque::Fixture';
+use Test::More ;
+use LWP::UserAgent;
+use Test::Deep;
 
-package Web::Solid::Test::Basic;
 
 our $AUTHORITY = 'cpan:KJETILK';
 our $VERSION   = '0.001';
+
+sub http_read_unauthenticated : Test : Plan(1) {
+  my ($self, $args) = @_;
+  my $ua = LWP::UserAgent->new;
+  my $url = $args->{url};
+  my $reshead = $ua->head( $url );
+  ok($reshead->is_success, "Successful HEAD request for $url");
+}
+  
+
 
 1;
 
