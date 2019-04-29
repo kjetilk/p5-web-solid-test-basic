@@ -12,12 +12,17 @@ use Test::Deep;
 our $AUTHORITY = 'cpan:KJETILK';
 our $VERSION   = '0.001';
 
-sub http_read_unauthenticated : Test : Plan(1) {
+sub http_read_unauthenticated : Test : Plan(3) {
   my ($self, $args) = @_;
   my $ua = LWP::UserAgent->new;
   my $url = $args->{url};
   my $reshead = $ua->head( $url );
   ok($reshead->is_success, "Successful HEAD request for $url");
+  my $resget = $ua->get( $url );
+  ok($resget->is_success, "Successful GET request for $url");
+  my @head_headers_fields = $reshead->headers->header_field_names;
+  my @get_headers_fields = $resget->headers->header_field_names;
+  cmp_bag(\@head_headers_fields, \@get_headers_fields, "HEAD and GET request has the same header fields");
 }
   
 
