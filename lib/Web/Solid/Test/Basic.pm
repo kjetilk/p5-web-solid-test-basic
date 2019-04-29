@@ -12,7 +12,7 @@ use Test::Deep;
 our $AUTHORITY = 'cpan:KJETILK';
 our $VERSION   = '0.001';
 
-sub http_read_unauthenticated : Test : Plan(3) {
+sub http_read_unauthenticated : Test : Plan(4) {
   my ($self, $args) = @_;
   my $ua = LWP::UserAgent->new;
   my $url = $args->{url};
@@ -25,6 +25,14 @@ sub http_read_unauthenticated : Test : Plan(3) {
   my @head_headers_fields = $reshead->headers->header_field_names;
   my @get_headers_fields = $resget->headers->header_field_names;
   cmp_bag(\@head_headers_fields, \@get_headers_fields, "HEAD and GET request has the same header fields");
+
+  subtest 'Testing all headers' => sub {
+	 plan tests => scalar @get_headers_fields;
+	 foreach my $get_header_field (@get_headers_fields) { # TODO: Date-fields may fail
+		is($resget->header($get_header_field), $reshead->header($get_header_field), "$get_header_field is the same for both");
+	 }
+  };
+
 }
   
 
