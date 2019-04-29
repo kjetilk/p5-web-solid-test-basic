@@ -34,6 +34,8 @@ my $file = $Bin . '/data/basic.ttl';
 
 use Test::FITesque::RDF;
 
+BAIL_OUT("Set SOLID_REMOTE_BASE to the URL of the base of the server you are testing") unless $ENV{SOLID_REMOTE_BASE};
+
 my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
 
 $suite->run_tests;
