@@ -103,6 +103,42 @@ implements, consider the below an example of how this should be done.
 
 =head1 IMPLEMENTED TESTS
 
+=head2 C<< http_read_unauthenticated >>
+
+Some basic tests for HTTP reads.
+
+=head3 Parameters
+
+=over
+
+=item * C<url>
+
+The URL to request.
+
+=back
+
+
+=head3 Implements
+
+=over
+
+=item 1. That an HTTP HEAD request to the given URL succeeds.
+
+=item 2. That an HTTP GET request to the given URL succeeds.
+
+=item 3. That the HEAD and GET requests had the same header fields.
+
+=item 4. That the values of the header fields are the same.
+
+=back
+
+
+=head1 NOTE
+
+The parameters above are in the RDF formulated as actual full URIs,
+but where the local part is used here and resolved by the
+L<Test::FITesque::RDF> framework, see its documentation for details.
+
 
 =head1 BUGS
 
