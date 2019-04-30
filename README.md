@@ -97,13 +97,18 @@ Set `SOLID_BEARER_TOKEN` to the bearer token to be used in the authorization hea
 
 ### Implements
 
-- 1. That an HTTP PUT request to the given URL with a short Turlte payload succeeds.
+- 1. That an HTTP PUT request to the given URL with a short Turtle payload succeeds.
 
 # NOTE
 
 The parameters above are in the RDF formulated as actual full URIs,
 but where the local part is used here and resolved by the
 [Test::FITesque::RDF](https://metacpan.org/pod/Test::FITesque::RDF) framework, see its documentation for details.
+
+# TODO
+
+The namespaces used in the current fixture tables are examples, and
+will be changed before an 1.0 release of the system.
 
 # BUGS
 
