@@ -45,6 +45,21 @@ implements, consider the below an example of how this should be done.
 
 # IMPLEMENTED TESTS
 
+## Test scripts
+
+This package provides `tests/basic.t` which runs tests over the
+fixture table in `tests/data/basic.ttl`. The test script requires the
+environment variable `SOLID_REMOTE_BASE` to be set to the base URL
+that any relative URLs in the fixture tables will be resolved
+against. Thus, the fixture tables themselves are independent of the
+host that will run them.
+
+To run the test script in the clone of this package, invoke it like this:
+
+```
+SOLID_REMOTE_BASE="https://kjetiltest4.dev.inrupt.net/" prove -l tests/basic.t
+```
+
 ## `http_read_unauthenticated`
 
 Some basic tests for HTTP reads.
@@ -55,12 +70,34 @@ Some basic tests for HTTP reads.
 
     The URL to request.
 
+### Environment
+
+None
+
 ### Implements
 
 - 1. That an HTTP HEAD request to the given URL succeeds.
 - 2. That an HTTP GET request to the given URL succeeds.
 - 3. That the HEAD and GET requests had the same header fields.
 - 4. That the values of the header fields are the same.
+
+## `http_write_with_bearer`
+
+Test for successful HTTP PUT authenticated with a Bearer token
+
+### Parameters
+
+- `url`
+
+    The URL to request.
+
+### Environment
+
+Set `SOLID_BEARER_TOKEN` to the bearer token to be used in the authorization header.
+
+### Implements
+
+- 1. That an HTTP PUT request to the given URL with a short Turlte payload succeeds.
 
 # NOTE
 
