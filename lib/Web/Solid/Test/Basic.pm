@@ -174,7 +174,7 @@ Set C<SOLID_BEARER_TOKEN> to the bearer token to be used in the authorization he
 
 =over
 
-=item 1. That an HTTP PUT request to the given URL with a short Turlte payload succeeds.
+=item 1. That an HTTP PUT request to the given URL with a short Turtle payload succeeds.
 
 =back
 
@@ -187,6 +187,11 @@ Set C<SOLID_BEARER_TOKEN> to the bearer token to be used in the authorization he
 The parameters above are in the RDF formulated as actual full URIs,
 but where the local part is used here and resolved by the
 L<Test::FITesque::RDF> framework, see its documentation for details.
+
+=head1 TODO
+
+The namespaces used in the current fixture tables are examples, and
+will be changed before an 1.0 release of the system.
 
 
 =head1 BUGS
