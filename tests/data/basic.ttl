@@ -5,10 +5,16 @@
 
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures <#public-read-unauthn> . 
+    test:fixtures <#public-read-unauthn>, <#write-with-bearer> . 
 
 <#public-read-unauthn> a test:Test ;
     test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
     test:param_base <http://example.org/my-parameters#> ;
     dc:identifier "http_read_unauthenticated" ;
     test:params [ my:url </public/> ] .
+
+<#write-with-bearer> a test:Test ;
+    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
+    test:param_base <http://example.org/my-parameters#> ;
+    dc:identifier "http_write_with_bearer" ;
+    test:params [ my:url </private/foo.ttl> ] .
