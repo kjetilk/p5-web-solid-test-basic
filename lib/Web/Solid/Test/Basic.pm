@@ -103,6 +103,22 @@ implements, consider the below an example of how this should be done.
 
 =head1 IMPLEMENTED TESTS
 
+=head2 Test scripts
+
+This package provides C<tests/basic.t> which runs tests over the
+fixture table in C<tests/data/basic.ttl>. The test script requires the
+environment variable C<SOLID_REMOTE_BASE> to be set to the base URL
+that any relative URLs in the fixture tables will be resolved
+against. Thus, the fixture tables themselves are independent of the
+host that will run them.
+
+To run the test script in the clone of this package, invoke it like this:
+
+  SOLID_REMOTE_BASE="https://kjetiltest4.dev.inrupt.net/" prove -l tests/basic.t
+
+
+
+
 =head2 C<< http_read_unauthenticated >>
 
 Some basic tests for HTTP reads.
@@ -117,6 +133,9 @@ The URL to request.
 
 =back
 
+=head3 Environment
+
+None
 
 =head3 Implements
 
