@@ -152,6 +152,36 @@ None
 =back
 
 
+=head2 C<< http_write_with_bearer >>
+
+Test for successful HTTP PUT authenticated with a Bearer token
+
+=head3 Parameters
+
+=over
+
+=item * C<url>
+
+The URL to request.
+
+=back
+
+=head3 Environment
+
+Set C<SOLID_BEARER_TOKEN> to the bearer token to be used in the authorization header.
+
+=head3 Implements
+
+=over
+
+=item 1. That an HTTP PUT request to the given URL with a short Turlte payload succeeds.
+
+=back
+
+
+
+
+
 =head1 NOTE
 
 The parameters above are in the RDF formulated as actual full URIs,
