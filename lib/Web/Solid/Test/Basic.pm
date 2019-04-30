@@ -38,13 +38,16 @@ sub http_read_unauthenticated : Test : Plan(4) {
 
 sub http_write_with_bearer : Test : Plan(1) {
   my ($self, $args) = @_;
-  my $ua = LWP::UserAgent->new;
-  $ua->default_header('Authorization' => 'Bearer ' . $ENV{SOLID_BEARER_TOKEN},
-							 'Content-Type' => 'text/turtle'
-							);
-  my $url = $args->{url};
-  my $res = $ua->put( $url, Content => '<https://example.org/foo> a <https://example.org/Dahut> .' );
-  ok($res->is_success, "Successful PUT request for $url");
+ SKIP: {
+    skip 'SOLID_BEARER_TOKEN needs to set for this test', 1 unless ($ENV{SOLID_BEARER_TOKEN});
+	 my $ua = LWP::UserAgent->new;
+	 $ua->default_header('Authorization' => 'Bearer ' . $ENV{SOLID_BEARER_TOKEN},
+								'Content-Type' => 'text/turtle'
+							  );
+	 my $url = $args->{url};
+	 my $res = $ua->put( $url, Content => '<https://example.org/foo> a <https://example.org/Dahut> .' );
+	 ok($res->is_success, "Successful PUT request for $url");
+  }
 };
 
 
