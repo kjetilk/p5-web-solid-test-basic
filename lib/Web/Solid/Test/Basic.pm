@@ -51,6 +51,26 @@ sub http_write_with_bearer : Test : Plan(1) {
 };
 
 
+sub http_methods_with_bearer : Test : Plan(1) {
+  my ($self, $args) = @_;
+ SKIP: {
+    skip 'SOLID_BEARER_TOKEN needs to set for this test', 1 unless ($ENV{SOLID_BEARER_TOKEN});
+	 my $ua = LWP::UserAgent->new;
+	 $ua->default_header('Authorization' => 'Bearer ' . $ENV{SOLID_BEARER_TOKEN},
+								'Content-Type' => 'text/turtle',
+								'Accept' => 'text/turtle',
+							  );
+	 my $url = $args->{url};
+	 my $method = $args->{method};
+	 my $res = $ua->request( HTTP::Request->new($method => $url), Content => $args->{body} );
+	 is($res->code, $args->{code}, "Using $method for request for $url");
+  }
+};
+
+
+
+
+
 1;
 
 __END__
@@ -178,6 +198,46 @@ Set C<SOLID_BEARER_TOKEN> to the bearer token to be used in the authorization he
 =over
 
 =item 1. That an HTTP PUT request to the given URL with a short Turtle payload succeeds.
+
+=back
+
+
+=head2 C<< http_methods_with_bearer >>
+
+Tests for whether a certain HTTP request, authenticated with a Bearer token, returns a certain status code.
+
+=head3 Parameters
+
+=over
+
+=item * C<url>
+
+The URL to request.
+
+=item * C<method>
+
+The HTTP method to use in the request.
+
+=item * C<body>
+
+The body of the request (optional).
+
+=item * C<code>
+
+The expected status code to tests for.
+
+=back
+
+=head3 Environment
+
+Set C<SOLID_BEARER_TOKEN> to the bearer token to be used in the authorization header.
+
+=head3 Implements
+
+=over
+
+=item 1. That an HTTP request with the given method and body to the
+given URL with an payload returns the given status code.
 
 =back
 
