@@ -36,6 +36,25 @@ sub http_read_unauthenticated : Test : Plan(4) {
 }
 
 
+sub http_check_header_unauthenticated : Test : Plan(2) {
+  my ($self, $args) = @_;
+  my $ua = LWP::UserAgent->new;
+  my $url = $args->{url};
+  delete $args->{url};
+  my $reshead = $ua->head( $url );
+  ok($reshead->is_success, "Successful HEAD request for $url");
+  subtest 'Testing HTTP header content' => sub {
+	 plan tests => scalar keys(%{$args});
+	 while (my ($predicate, $value) = each(%{$args})) {
+		my ($key) = $predicate =~ m/\#(.*)$/; # TODO: Use URI::NamespaceMap for this
+		$key =~ s/_/-/g; # Some heuristics for creating HTTP headers
+		$key =~ s/\b(\w)/\u$1/g;
+		is($reshead->header($key), $value, "$key has correct value");
+	 }
+  }
+}
+
+
 sub http_put_readback_unauthenticated : Test : Plan(4) {
   my ($self, $args) = @_;
   my $ua = LWP::UserAgent->new;
