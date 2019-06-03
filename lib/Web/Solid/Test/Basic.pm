@@ -189,6 +189,38 @@ None
 
 =back
 
+=head2 C<< http_put_readback_unauthenticated >>
+
+First writes some content with a PUT request, then reads it back with a GET and checks RDF validity.
+
+=head3 Parameters
+
+=over
+
+=item * C<url>
+
+The URL to request.
+
+=back
+
+=head3 Environment
+
+None
+
+=head3 Implements
+
+=over
+
+=item 1. That an HTTP PUT with content request to the given URL succeeds.
+
+=item 2. That an HTTP GET request to the given URL succeeds.
+
+=item 3. That the content is valid RDF.
+
+=item 4. That the triples in the written and read RDF is the same.
+
+=back
+
 
 =head2 C<< http_write_with_bearer >>
 
