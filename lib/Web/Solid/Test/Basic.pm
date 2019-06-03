@@ -7,7 +7,7 @@ use parent 'Test::FITesque::Fixture';
 use Test::More ;
 use LWP::UserAgent;
 use Test::Deep;
-
+use Test::RDF;
 
 our $AUTHORITY = 'cpan:KJETILK';
 our $VERSION   = '0.001';
@@ -33,6 +33,21 @@ sub http_read_unauthenticated : Test : Plan(4) {
 	 }
   };
 
+}
+
+
+sub http_put_readback_unauthenticated : Test : Plan(4) {
+  my ($self, $args) = @_;
+  my $ua = LWP::UserAgent->new;
+  my $url = $args->{url};
+  my $content = '<https://example.org/foo> a <https://example.org/Dahut> .';
+  my $resput = $ua->put( $url, Content => $content );
+  ok($resput->is_success, "Successful PUT request for $url");
+  my $resget = $ua->get( $url );
+  ok($resget->is_success, "Successful GET request for $url");
+  my $rescontent = $resget->content;
+  is_valid_rdf($rescontent, "Returned content is valid RDF");
+  is_rdf($rescontent, $content, "Same content returned");
 }
 
 
