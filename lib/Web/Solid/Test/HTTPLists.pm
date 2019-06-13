@@ -142,6 +142,12 @@ The parameters above are in the RDF formulated as actual full URIs,
 but where the local part is used here and resolved by the
 L<Test::FITesque::RDF> framework, see its documentation for details.
 
+To run tests against a server that uses HTTPS but does not have a
+valid certificate, such as a self-signed one, install
+L<LWP::Protocol::https> and ignore errors by setting the environment
+variable <PERL_LWP_SSL_VERIFY_HOSTNAME=0>
+
+
 =head1 TODO
 
 The namespaces used in the current fixture tables are examples, and
