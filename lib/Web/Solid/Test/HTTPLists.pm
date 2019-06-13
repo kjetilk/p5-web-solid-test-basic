@@ -25,7 +25,8 @@ sub http_req_res_list_unauthenticated : Test : Plan(1)  {
 		  my $expected_response = ${$args->{'http-responses'}}[$i];
 		  isa_ok($response, 'HTTP::Response');
 		  if ($expected_response->code) {
-			 is($response->code, $expected_response->code, "Response code is " . $expected_response->code);
+			 is($response->code, $expected_response->code, "Response code is " . $expected_response->code)
+				|| note 'Returned content: ' . $response->content;
 		  }
 		  my @expected_header_fields = $expected_response->header_field_names;
 		  if (scalar @expected_header_fields) {
