@@ -19,7 +19,6 @@ sub http_req_res_list_unauthenticated : Test : Plan(1)  {
 	 plan tests => scalar @requests;
 	 for (my $i=0; $i <= $#requests; $i++) {
 		subtest "Request-response #" . ($i+1) => sub {
-		  plan qw(no_plan);
 		  my $ua = LWP::UserAgent->new;
 		  my $response = $ua->request( $requests[$i] );
 		  my $expected_response = ${$args->{'http-responses'}}[$i];
