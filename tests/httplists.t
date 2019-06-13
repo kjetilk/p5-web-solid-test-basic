@@ -29,10 +29,8 @@ use Test::More;
 use FindBin qw($Bin);
 use Test::FITesque;
 use Test::FITesque::Test;
-use Carp::Always;
 
 my $file = $Bin . '/data/http-list.ttl';
-#my $file = '/home/kjetil/dev/solid/test-suite/fixture-tables/assume-world-writable.ttl';
 
 use Test::FITesque::RDF;
 
