@@ -5,25 +5,13 @@
 @prefix httph:<http://www.w3.org/2007/ont/httph#> .
 
 <#test-list> a test:FixtureTable ;
-    test:fixtures <#public-read-unauthn>, <#public-read-unauthn-cors>, <#write-with-bearer>, <#put-with-bearer> . 
+    test:fixtures <#public-read-unauthn>, <#write-with-bearer>, <#put-with-bearer> . 
 
 <#public-read-unauthn> a test:Test ;
     test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
     test:param_base <http://example.org/my-parameters#> ;
     dc:identifier "http_read_unauthenticated" ;
     test:params [ my:url </public/> ] .
-
-
-<#public-read-unauthn-cors> a test:Test ;
-    test:handler "Web::Solid::Test::Basic"^^deps:CpanId ;
-    test:param_base <http://example.org/my-parameters#> ;
-    dc:identifier "http_check_header_unauthenticated" ;
-    test:params [
-        my:url </public/> ;
-        httph:access_control_allow_origin "*"
-        ] .
-
-
 
 
 <#write-with-bearer> a test:Test ;
