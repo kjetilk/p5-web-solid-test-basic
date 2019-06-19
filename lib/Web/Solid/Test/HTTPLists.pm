@@ -4,7 +4,6 @@ use 5.010001;
 use strict;
 use warnings;
 use parent 'Test::FITesque::Fixture';
-use Test::More qw(no_plan) ;
 use LWP::UserAgent;
 use Test::Deep;
 use Test::RDF;
