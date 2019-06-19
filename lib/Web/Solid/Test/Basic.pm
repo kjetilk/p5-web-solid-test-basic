@@ -26,9 +26,11 @@ sub http_read_unauthenticated : Test : Plan(4) {
   my @get_headers_fields = $resget->headers->header_field_names;
   cmp_bag(\@head_headers_fields, \@get_headers_fields, "HEAD and GET request has the same header fields");
 
+  @get_headers_fields = grep (!/Date/, @get_headers_fields); # Do not test date-fields since they may change between HEAD and GET
+
   subtest 'Testing all headers' => sub {
 	 plan tests => scalar @get_headers_fields;
-	 foreach my $get_header_field (@get_headers_fields) { # TODO: Date-fields may fail
+	 foreach my $get_header_field (@get_headers_fields) {
 		is($resget->header($get_header_field), $reshead->header($get_header_field), "$get_header_field is the same for both");
 	 }
   };
