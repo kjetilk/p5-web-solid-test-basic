@@ -32,7 +32,22 @@ sub http_req_res_list_unauthenticated : Test : Plan(1)  {
 			 subtest 'Testing all headers' => sub {
 				plan tests => scalar @expected_header_fields;
 				foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail if expectation is dynamic
-				  my $tmp_h = HTTP::Headers->new($expected_header_field => [split(/,\s*/,$response->header($expected_header_field))]); # TODO: Temporary hack until LWP::UserAgent sends parsed headers to the HTTP::Response object
+				  # The following line is a hack to parse field values
+				  # with multiple values. Comma-separated lists are a
+				  # common occurence, but as of RFC7230, they are not
+				  # defined in the HTTP standard itself, it is left to
+				  # each individual spec to define the syntax if the field
+				  # values, so it is an open world. It would therefore be
+				  # inappropriate to implement just splitting by comma
+				  # (and whitespace) in a general purpose framework, even
+				  # though it will work in most cases. Since it works for
+				  # us now it makes sense to implement it as such for now.
+				  # A more rigorous solution to the problem is in
+				  # https://metacpan.org/pod/HTTP::Headers::ActionPack,
+				  # which is an extensible framework for working with
+				  # headers, and so, it can be used to implement syntax
+				  # for headers that are seen.
+				  my $tmp_h = HTTP::Headers->new($expected_header_field => [split(/,\s*/,$response->header($expected_header_field))]);
 				  cmp_deeply([$tmp_h->header($expected_header_field)], bag($expected_response->header($expected_header_field)), "$expected_header_field is as expected");
 				}
 			 };
