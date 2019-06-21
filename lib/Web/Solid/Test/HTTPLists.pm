@@ -48,7 +48,7 @@ sub http_req_res_list_unauthenticated : Test : Plan(1)  {
 				  # headers, and so, it can be used to implement syntax
 				  # for headers that are seen.
 				  my $tmp_h = HTTP::Headers->new($expected_header_field => [split(/,\s*/,$response->header($expected_header_field))]);
-				  cmp_deeply([$tmp_h->header($expected_header_field)], supersetof($expected_response->header($expected_header_field)), "$expected_header_field is as expected");
+				  cmp_deeply([$tmp_h->header($expected_header_field)], supersetof($expected_response->header($expected_header_field)), "$expected_header_field is a superset as expected");
 				}
 			 };
 		  } else {
