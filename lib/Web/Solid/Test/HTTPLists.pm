@@ -31,8 +31,9 @@ sub http_req_res_list_unauthenticated : Test : Plan(1)  {
 		  if (scalar @expected_header_fields) {
 			 subtest 'Testing all headers' => sub {
 				plan tests => scalar @expected_header_fields;
-				foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail
-				  is($response->header($expected_header_field), $expected_response->header($expected_header_field), "$expected_header_field is the same for both");
+				foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail if expectation is dynamic
+				  my $tmp_h = HTTP::Headers->new($expected_header_field => [split(/,\s*/,$response->header($expected_header_field))]); # TODO: Temporary hack until LWP::UserAgent sends parsed headers to the HTTP::Response object
+				  cmp_deeply([$tmp_h->header($expected_header_field)], bag($expected_response->header($expected_header_field)), "$expected_header_field is as expected");
 				}
 			 };
 		  } else {
