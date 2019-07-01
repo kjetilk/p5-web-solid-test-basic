@@ -20,6 +20,9 @@ sub http_req_res_list_unauthenticated : Test : Plan(1)  {
 	 for (my $i=0; $i <= $#requests; $i++) {
 		subtest "Request-response #" . ($i+1) => sub {
 		  my $ua = LWP::UserAgent->new;
+		  if ($ENV{SOLID_ENABLE_AUTH}) {
+			 $requests[$i]->header('Authorization' => 'Bearer ' . $ENV{SOLID_BEARER_TOKEN})
+		  }
 		  my $response = $ua->request( $requests[$i] );
 		  my $expected_response = ${$args->{'http-responses'}}[$i];
 		  isa_ok($response, 'HTTP::Response');
