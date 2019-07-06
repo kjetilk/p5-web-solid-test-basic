@@ -17,6 +17,7 @@ sub http_read_unauthenticated : Test : Plan(4) {
   my $ua = LWP::UserAgent->new;
   my $url = $args->{url};
   my $reshead = $ua->head( $url );
+  note($args->{description});
   ok($reshead->is_success, "Successful HEAD request for $url");
 
   my $resget = $ua->get( $url );
@@ -43,7 +44,9 @@ sub http_check_header_unauthenticated : Test : Plan(2) {
   my ($self, $args) = @_;
   my $ua = LWP::UserAgent->new;
   my $url = $args->{url};
+  note($args->{description});
   delete $args->{url};
+  delete $args->{description};
   my $reshead = $ua->head( $url );
   ok($reshead->is_success, "Successful HEAD request for $url");
   subtest 'Testing HTTP header content' => sub {
@@ -64,6 +67,7 @@ sub http_put_readback_unauthenticated : Test : Plan(4) {
   my $url = $args->{url};
   my $content = '<https://example.org/foo> a <https://example.org/Dahut> .';
   my $resput = $ua->put( $url, Content => $content );
+  note($args->{description});
   ok($resput->is_success, "Successful PUT request for $url");
   my $resget = $ua->get( $url );
   ok($resget->is_success, "Successful GET request for $url");
@@ -92,6 +96,7 @@ sub http_methods_with_bearer : Test : Plan(1) {
   my ($self, $args) = @_;
  SKIP: {
     skip 'SOLID_BEARER_TOKEN needs to set for this test', 1 unless ($ENV{SOLID_BEARER_TOKEN});
+	 note($args->{description});
 	 my $ua = LWP::UserAgent->new;
 	 $ua->default_header('Authorization' => 'Bearer ' . $ENV{SOLID_BEARER_TOKEN},
 								'Content-Type' => 'text/turtle',

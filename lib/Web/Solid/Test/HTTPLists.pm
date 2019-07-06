@@ -15,53 +15,61 @@ our $VERSION   = '0.001';
 sub http_req_res_list_unauthenticated : Test : Plan(1)  {
   my ($self, $args) = @_;
   my @requests = @{$args->{'http-requests'}}; # Unpack for readability
-  subtest 'Request-responses' => sub {
+  subtest $args->{description} => sub {
 	 plan tests => scalar @requests;
 	 for (my $i=0; $i <= $#requests; $i++) {
-		subtest "Request-response #" . ($i+1) => sub {
-		  my $ua = LWP::UserAgent->new;
-		  if ($ENV{SOLID_ENABLE_AUTH}) {
-			 $requests[$i]->header('Authorization' => 'Bearer ' . $ENV{SOLID_BEARER_TOKEN})
-		  }
-		  my $response = $ua->request( $requests[$i] );
-		  my $expected_response = ${$args->{'http-responses'}}[$i];
-		  isa_ok($response, 'HTTP::Response');
-		  if ($expected_response->code) {
-			 is($response->code, $expected_response->code, "Response code is " . $expected_response->code)
-				|| note 'Returned content: ' . $response->content;
-		  }
-		  my @expected_header_fields = $expected_response->header_field_names;
-		  if (scalar @expected_header_fields) {
-			 subtest 'Testing all headers' => sub {
-				plan tests => scalar @expected_header_fields;
-				foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail if expectation is dynamic
-				  # The following line is a hack to parse field values
-				  # with multiple values. Comma-separated lists are a
-				  # common occurence, but as of RFC7230, they are not
-				  # defined in the HTTP standard itself, it is left to
-				  # each individual spec to define the syntax if the field
-				  # values, so it is an open world. It would therefore be
-				  # inappropriate to implement just splitting by comma
-				  # (and whitespace) in a general purpose framework, even
-				  # though it will work in most cases. Since it works for
-				  # us now it makes sense to implement it as such for now.
-				  # A more rigorous solution to the problem is in
-				  # https://metacpan.org/pod/HTTP::Headers::ActionPack,
-				  # which is an extensible framework for working with
-				  # headers, and so, it can be used to implement syntax
-				  # for headers that are seen.
-				  my $tmp_h = HTTP::Headers->new($expected_header_field => [split(/,\s*/,$response->header($expected_header_field))]);
-				  cmp_deeply([$tmp_h->header($expected_header_field)], supersetof($expected_response->header($expected_header_field)), "$expected_header_field is a superset as expected");
-				}
-			 };
-		  } else {
-			 note "No expected headers set";
-		  }
-		};
+		my $ua = LWP::UserAgent->new;
+		my $response = $ua->request( $requests[$i] );
+		my $expected_response = ${$args->{'http-responses'}}[$i];
+		subtest "Request-response #" . ($i+1) =>
+		  \&_subtest_compare_req_res, $requests[$i], $response, $expected_response; #Callback syntax isn't pretty, admittedly
 	 }
   };
 }
 
+
+sub _subtest_compare_req_res {
+  my ($request, $response, $expected_response) = @_;
+  isa_ok($response, 'HTTP::Response');
+  if ($expected_response->code) {
+	 is($response->code, $expected_response->code, "Response code is " . $expected_response->code)
+		|| note 'Returned content: ' . $response->content;
+  }
+  my @expected_header_fields = $expected_response->header_field_names;
+  if (scalar @expected_header_fields) {
+	 subtest 'Testing all headers' => sub {
+		plan tests => scalar @expected_header_fields;
+		foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail if expectation is dynamic
+		  if (defined($response->header($expected_header_field))) {
+			 # The following line is a hack to parse field values
+			 # with multiple values. Comma-separated lists are a
+			 # common occurence, but as of RFC7230, they are not
+			 # defined in the HTTP standard itself, it is left to
+			 # each individual spec to define the syntax if the
+			 # field values, so it is an open world. It would
+			 # therefore be inappropriate to implement just
+			 # splitting by comma (and whitespace) in a general
+			 # purpose framework, even though it will work in most
+			 # cases. Since it works for us now it makes sense to
+			 # implement it as such for now.  A more rigorous
+			 # solution to the problem is in
+			 # https://metacpan.org/pod/HTTP::Headers::ActionPack,
+			 # which is an extensible framework for working with
+			 # headers, and so, it can be used to implement syntax
+			 # for headers that are seen.
+			 my $tmp_h = HTTP::Headers->new($expected_header_field => [split(/,\s*/,$response->header($expected_header_field))]);
+			 cmp_deeply([$tmp_h->header($expected_header_field)],
+							supersetof($expected_response->header($expected_header_field)),
+							"$expected_header_field is a superset as expected");
+		  } else {
+			 fail("Presence of $expected_header_field in response") # Easiest way to maintain correct number of tests and also not get a warning for a calling split on undef is to fail the test like this
+		  }
+		}
+	 };
+  } else {
+	 note "No expected headers set";
+  }
+}
 
 
 1;
