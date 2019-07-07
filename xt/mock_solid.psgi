@@ -3,10 +3,16 @@ use strict;
 use warnings;
 use Plack::Request;
 
-my $mock_solid = sub {
-    my $env = shift;
-	 my $req = Plack::Request->new($env);
-	 return [ 200, ['Content-type' , 'text/turtle'], [ 'body'] ];
-#    return [ $status, $headers, $body ];
-};
+package MockSolid;
+use Web::Simple;
 
+sub dispatch_request {
+  GET => sub {
+    [ 200, [ 'Content-type', 'text/turtle' ], [ 'Hello world!' ] ]
+  },
+  '' => sub {
+    [ 405, [ 'Content-type', 'text/plain' ], [ 'Method not allowed' ] ]
+  }
+}
+
+MockSolid->run_if_script;
