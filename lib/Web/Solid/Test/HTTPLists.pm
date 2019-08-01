@@ -14,13 +14,13 @@ our $VERSION   = '0.001';
 
 sub http_req_res_list_unauthenticated : Test : Plan(1)  {
   my ($self, $args) = @_;
-  my @requests = @{$args->{'http-requests'}}; # Unpack for readability
-  subtest $args->{description} => sub {
+  my @requests = @{$args->{'-special'}->{'http-requests'}}; # Unpack for readability
+  subtest $args->{'-special'}->{description} => sub {
 	 plan tests => scalar @requests;
 	 for (my $i=0; $i <= $#requests; $i++) {
 		my $ua = LWP::UserAgent->new;
 		my $response = $ua->request( $requests[$i] );
-		my $expected_response = ${$args->{'http-responses'}}[$i];
+		my $expected_response = ${$args->{'-special'}->{'http-responses'}}[$i];
 		subtest "Request-response #" . ($i+1) =>
 		  \&_subtest_compare_req_res, $requests[$i], $response, $expected_response; #Callback syntax isn't pretty, admittedly
 	 }
