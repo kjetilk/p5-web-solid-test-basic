@@ -11,11 +11,11 @@
     test:fixtures (
         :check_acl_location
     ) .
-    
+
 <http://example.org/httplist#http_req_res_list_location> a nfo:SoftwareItem ;
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
     nfo:definesFunction "http_req_res_list_location" .
-    
+
 
 :check_acl_location a test:AutomatedTest ;
     test:purpose "Determine location and write ACL document"@en ;
@@ -24,30 +24,30 @@
         test:requests ( :check_acl_location_req :put_new_acl_req ) ;
         test:responses ( :check_acl_location_res :put_new_acl_res )
     ] .
-                
+
 
 :check_acl_location_req a http:RequestMessage ;
     http:method "HEAD" ;
     http:requestURI </> .
-    
+
 :check_acl_location_res a http:ResponseMessage ;
-    httph:link "<(.*?)>;\s+rel=\"acl\""^^dqm:regex ;
+    httph:link '<(.*?)>;\\s+rel="acl"'^^dqm:regex ;
     http:status 200 .
 
 :put_new_acl_req a http:RequestMessage ;
     http:method "PUT" ;
-    httph:content_type "text/turtle" .
+    httph:content_type "text/turtle" ;
 http:content """
 @prefix acl: <http://www.w3.org/ns/auth/acl#>.
 <#owner> a acl:Authorization;
 acl:default </>;
 acl:accessTo </>;
-acl:agent <profile/card#me>; 
+acl:agent <profile/card#me>;
 acl:mode acl:Read. """ .
 
-    
+
 :put_new_acl_res a http:ResponseMessage ;
     http:status "201" .
 
-            
+
 
