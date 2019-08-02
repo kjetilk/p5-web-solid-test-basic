@@ -41,5 +41,5 @@ my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REM
 $suite->run_tests;
 
 done_testing;
-  
+
 
