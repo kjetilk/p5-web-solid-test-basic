@@ -8,7 +8,7 @@
     :runtime-requirement    [ :on "Test::RDF"^^:CpanId ];
     :runtime-requirement    [ :on "LWP::UserAgent"^^:CpanId ];
     :runtime-requirement    [ :on "FindBin"^^:CpanId ];
-    :runtime-requirement    [ :on "Test::FITesque::RDF"^^:CpanId ];
+    :runtime-requirement    [ :on "Test::FITesque::RDF 0.011"^^:CpanId ];
     :develop-recommendation [ :on "Dist::Inkt 0.001"^^:CpanId ];
     :develop-recommendation [ :on "Web::Simple"^^:CpanId ];
     :develop-recommendation [ :on "Plack"^^:CpanId ];
