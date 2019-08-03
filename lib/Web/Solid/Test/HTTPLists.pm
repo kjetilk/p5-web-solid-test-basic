@@ -26,14 +26,11 @@ sub http_req_res_list_location : Test : Plan(1)  {
 		my $expected_response = shift @expected_responses;
 		my $regex_fields = shift @regex_fields;
 		my @expected_header_fields = $expected_response->header_field_names;
-		warn Dumper($regex_fields);
-		warn Dumper(\@expected_header_fields);
 		foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail if expectation is dynamic
 		  if ($regex_fields->{$expected_header_field}) { # Then, we have a regular expression from the RDF to match
-			 warn Dumper($expected_response->header($expected_header_field));
-			 warn Dumper($response->header($expected_header_field));
-			 my @matches = $response->header($expected_header_field) =~ m/$expected_response->header($expected_header_field)/;
-			 warn Dumper(\@matches);
+			 my $regex = $expected_response->header($expected_header_field);
+			 like($response->header($expected_header_field), qr/$regex/, "\'$expected_header_field\'-header matches given regular expression");
+			 my @matches = $response->header($expected_header_field) =~ m/$regex/;
 		  }
 		}
 		
