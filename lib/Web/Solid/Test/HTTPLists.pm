@@ -18,25 +18,44 @@ sub http_req_res_list_location : Test : Plan(1)  {
   my @requests = @{$args->{'-special'}->{'http-requests'}}; # Unpack for readability
   my @expected_responses = @{$args->{'-special'}->{'http-responses'}};
   my @regex_fields = @{$args->{'-special'}->{'regex-fields'}};
+  my @matches;
   subtest $args->{'-special'}->{description} => sub {
 	 plan tests => scalar @requests;
 	 my $ua = LWP::UserAgent->new;
 	 subtest "First request" => sub {
-		my $response = $ua->request( shift @requests );
-		my $expected_response = shift @expected_responses;
-		my $regex_fields = shift @regex_fields;
+		my $request_no = 0;
+		my $response = $ua->request( $requests[$request_no] );
+		my $expected_response = $expected_responses[$request_no];
+		my $regex_fields = $regex_fields[$request_no];
 		my @expected_header_fields = $expected_response->header_field_names;
 		foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail if expectation is dynamic
 		  if ($regex_fields->{$expected_header_field}) { # Then, we have a regular expression from the RDF to match
 			 my $regex = $expected_response->header($expected_header_field);
 			 like($response->header($expected_header_field), qr/$regex/, "\'$expected_header_field\'-header matches given regular expression");
-			 my @matches = $response->header($expected_header_field) =~ m/$regex/;
+			 my @res_matches = $response->header($expected_header_field) =~ m/$regex/;
+			 push(@matches, \@res_matches);
+			 $expected_response->remove_header($expected_header_field); # So that we can test the rest with reusable components
 		  }
 		}
 		
-#		subtest "Request-response #" . ($i+1) =>
-		#  \&_subtest_compare_req_res, $requests[$i], $response, $expected_response; #Callback syntax isn't pretty, admittedly
-	# }
+		#		subtest "Request-response #" . ($i+1) =>
+		_subtest_compare_req_res($requests[$request_no], $response, $expected_response);
+		# }
+	 };
+
+	 subtest "Second request" => sub {
+		my $request_no = 1;
+		my $request = $requests[$request_no];
+		unless (defined($request->uri)) {
+		  # ASSUME: RequestURI was not given, it has to be derived from the previous request through a match
+		  # ASSUME: The first match of the previous request is the relative URI to be used for the this request
+		  # ASSUME: The base URI is the RequestURI for the previous request
+		  my $uri = URI->new_abs($matches[$request_no-1]->[0], $requests[$request_no-1]->uri);
+		  $request->uri($uri);
+		}
+		my $response = $ua->request($request);
+		my $expected_response = $expected_responses[$request_no];
+		_subtest_compare_req_res($requests[$request_no], $response, $expected_response);
 	 };
   };
 }

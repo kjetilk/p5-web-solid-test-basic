@@ -22,7 +22,7 @@ sub dispatch_request {
 	 'GET + /public/**'=> sub {
     [ 200, [ 'Content-type', 'text/turtle' ], [ '</public/verypublic/foobar.ttl#dahut> a <http://example.org/Cryptid> .' ] ]
   },
-  'PUT + /public/**' => sub {
+  'PUT + /**' => sub {
     [ 201, [ 'Content-type', 'text/turtle' ], [ '' ] ]
   },
   '' => sub {
