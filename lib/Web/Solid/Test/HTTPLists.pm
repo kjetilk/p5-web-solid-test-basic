@@ -125,8 +125,8 @@ sub _create_authorization_field {
 	 return 'Bearer ' . $object->value;
   }
   my $ua = LWP::UserAgent->new;
-  my $response = $ua->get($object);
-  BAIL_OUT "Could not retrieve bearer token from $object" unless $response->is_success;
+  my $response = $ua->get($object->as_string);
+  BAIL_OUT 'Could not retrieve bearer token from ' . $object->as_string unless $response->is_success;
   # TODO: Could we use some part of the protocol, or just get it from the body?
   return 'Bearer ' . $response->content;
 }

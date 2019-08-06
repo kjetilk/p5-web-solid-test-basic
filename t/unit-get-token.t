@@ -14,7 +14,7 @@ is(Web::Solid::Test::HTTPLists::_create_authorization_field(literal('dAhUUt')), 
 
 my $filename = $Bin . '/data/alice-token';
 
-ok(-r $filename, "$filename can be read");
+ok(-r $filename, "file can be read") || diag "File $filename could not be read";
 
 is(Web::Solid::Test::HTTPLists::_create_authorization_field(iri('file://' . $filename)), 'Bearer FoBaR', 'Bearer token returned from file IRI');
 
