@@ -119,6 +119,19 @@ sub _subtest_compare_req_res {
   }
 }
 
+sub _create_authorization_field {
+  my $object = shift;
+  if ($object->is_literal) {
+	 return 'Bearer ' . $object->value;
+  }
+  my $ua = LWP::UserAgent->new;
+  my $response = $ua->get($object);
+  BAIL_OUT "Could not retrieve bearer token from $object" unless $response->is_success;
+  # TODO: Could we use some part of the protocol, or just get it from the body?
+  return 'Bearer ' . $response->content;
+}
+ 
+
 
 1;
 
