@@ -121,23 +121,22 @@ sub _subtest_compare_req_res {
 
 sub _create_authorization_field {
   my ($object, $request_url) = @_;
-  if ($object->is_literal) {
-	 return 'Bearer ' . $object->value;
-  }
-  my $ua = LWP::UserAgent->new;
-  # Construct the URI to retrieve bearer token from
-  my $bearer_url = URI->new($object->as_string);
-  if (defined($request_url)) {
+  if ($object->isa('URI')) {
+	 my $ua = LWP::UserAgent->new;
+	 # Construct the URI to retrieve bearer token from
+	 my $bearer_url = $object;
+	 if (defined($request_url)) {
 	 # If the request URL (i.e. to the resource under test is given, then set audience
-	 my $aud_url = URI->new;
-	 $aud_url->scheme($request_url->scheme);
-	 $aud_url->authority($request_url->authority);
-	 $bearer_url->query("aud=$aud_url");
+		my $aud_url = URI->new;
+		$aud_url->scheme($request_url->scheme);
+		$aud_url->authority($request_url->authority);
+		$bearer_url->query("aud=$aud_url");
+	 }
+	 my $response = $ua->get($bearer_url);
+	 BAIL_OUT 'Could not retrieve bearer token from ' . $bearer_url->as_string unless $response->is_success;
+	 $object = $response->content;
   }
-  my $response = $ua->get($bearer_url);
-  BAIL_OUT 'Could not retrieve bearer token from ' . $object->as_string unless $response->is_success;
-  # TODO: Could we use some part of the protocol, or just get it from the body?
-  return 'Bearer ' . $response->content;
+  return "Bearer $object";
 }
  
 
