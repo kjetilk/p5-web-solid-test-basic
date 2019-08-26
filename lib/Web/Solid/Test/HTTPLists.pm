@@ -13,6 +13,8 @@ use Data::Dumper;
 our $AUTHORITY = 'cpan:KJETILK';
 our $VERSION   = '0.001';
 
+my $bearer_predicate = 'http://example.org/httplist/param#bearer'; # TODO: Define proper URI
+
 sub http_req_res_list_location : Test : Plan(1)  {
   my ($self, $args) = @_;
   my @requests = @{$args->{'-special'}->{'http-requests'}}; # Unpack for readability
@@ -60,17 +62,21 @@ sub http_req_res_list_location : Test : Plan(1)  {
   };
 }
 
-sub http_req_res_list_unauthenticated : Test : Plan(1)  {
+sub http_req_res_list : Test : Plan(1)  {
   my ($self, $args) = @_;
   my @requests = @{$args->{'-special'}->{'http-requests'}}; # Unpack for readability
+  my $ua = LWP::UserAgent->new;
   subtest $args->{'-special'}->{description} => sub {
 	 plan tests => scalar @requests;
 	 for (my $i=0; $i <= $#requests; $i++) {
-		my $ua = LWP::UserAgent->new;
-		my $response = $ua->request( $requests[$i] );
+		my $request = $requests[$i];
+		if ($args->{$bearer_predicate}) {
+		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
+		}
+		my $response = $ua->request( $request );
 		my $expected_response = ${$args->{'-special'}->{'http-responses'}}[$i];
 		subtest "Request-response #" . ($i+1) =>
-		  \&_subtest_compare_req_res, $requests[$i], $response, $expected_response; #Callback syntax isn't pretty, admittedly
+		  \&_subtest_compare_req_res, $request, $response, $expected_response; #Callback syntax isn't pretty, admittedly
 	 }
   };
 }
