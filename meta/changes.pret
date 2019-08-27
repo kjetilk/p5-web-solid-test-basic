@@ -1,5 +1,19 @@
 # This file acts as the project's changelog.
 
+`Web-Solid-Test-Basic 0.002 cpan:KJETILK`
+    issued  2019-08-27;
+    label   "Authentication" ;
+    changeset [
+        dcs:versus `Web-Solid-Test-Basic 0.001 cpan:KJETILK`;
+        item [ rdfs:label "Add bearer token-based authentication."; a dcs:Addition; ];
+	item [ rdfs:label "A script to run mockup server."; a dcs:Addition; ];
+	item [ rdfs:label "Author tests again mockup server."; a dcs:Addition; ];
+	item [ rdfs:label "Regexp-based stateful requests."; a dcs:Addition; ];
+	item [ rdfs:label "More documentation."; a dcs:Addition; ];
+	item [ rdfs:label "List requests can be optionally authenticated, change script name."; a dcs:Change; ];
+	item [ rdfs:label "Small fixes."; a dcs:Change; ]
+    ] .
+
 `Web-Solid-Test-Basic 0.001 cpan:KJETILK`
 	issued  2019-06-19;
 	label   "Initial release".
