@@ -11,7 +11,6 @@ use FindBin qw($Bin);
 use URI;
 use LWP::UserAgent;
 use IO::Socket::SSL;
-use Carp::Always;
 
 my $request_url = URI->new('http://example.test');
 my $all_tokens_url = 'https://idp.test.solidproject.org/tokens';
