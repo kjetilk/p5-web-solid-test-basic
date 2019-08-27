@@ -200,7 +200,7 @@ To run the test script in the clone of this package, invoke it like this:
 
 
 
-=head2 C<< http_req_res_list_unauthenticated >>
+=head2 C<< http_req_res_list >>
 
 Runs a list of HTTP request response pairs, checking response against the response.
 
@@ -215,6 +215,13 @@ An RDF list of requests that will be executed towards the server in C<SOLID_REMO
 =item * C<test:responses>
 
 An RDF list of responses that will be used as corresponding expected responses in the tests.
+
+=item * C<http://example.org/httplist/param#bearer>
+
+A bearer token that if present will be used to authenticate the
+requests given by the above list. The object of this predicate can
+either be a literal bearer token, or a URL, in which case, it will be
+dereferenced and the content will be used as the bearer token.
 
 
 =back
