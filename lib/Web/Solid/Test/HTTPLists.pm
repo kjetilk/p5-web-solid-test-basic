@@ -243,6 +243,12 @@ None
 =back
 
 
+=head2 C<< http_req_res_list_location >>
+
+Runs a list of two HTTP request response pairs, using a regular
+expression from the first request to set the request URL of the
+second. To be detailed.
+
 
 =head1 NOTE
 
