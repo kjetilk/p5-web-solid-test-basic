@@ -11,15 +11,15 @@
         <#public-cors-origin-set>
     ) .
 
-<http://example.org/httplist#http_req_res_list_unauthenticated>
+<http://example.org/httplist#http_req_res_list>
     a nfo:SoftwareItem ;
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-    nfo:definesFunction "http_req_res_list_unauthenticated" .
+    nfo:definesFunction "http_req_res_list" .
 
 
 <#public-writeread-unauthn-alt> a test:AutomatedTest ;
     test:purpose "A simple test for PUT then GET"@en ;
-    test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         test:requests ( <#public-writeread-unauthn-alt-put-req> <#public-writeread-unauthn-alt-get-req> ) ;
         test:responses ( <#public-writeread-unauthn-alt-put-res> <#public-writeread-unauthn-alt-get-res> )
@@ -46,7 +46,7 @@
 <#public-cors-origin-set> a test:AutomatedTest ;
     test:purpose "Testing CORS header when Origin is supplied by client"@en ;
     rdfs:isDefinedBy <https://www.w3.org/TR/cors/#syntax>, <https://github.com/solid/solid-spec/blob/master/recommendations-server.md#cors---cross-origin-resource-sharing> ;
-    test:test_script <http://example.org/httplist#http_req_res_list_unauthenticated> ;
+    test:test_script <http://example.org/httplist#http_req_res_list> ;
     test:params [
         test:requests ( <#public-cors-origin-set-req> ) ;
         test:responses ( <#public-cors-origin-set-res> )
