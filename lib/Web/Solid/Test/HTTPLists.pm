@@ -18,7 +18,6 @@ my $bearer_predicate = 'http://example.org/httplist/param#bearer'; # TODO: Defin
 sub http_req_res_list_location : Test : Plan(1)  {
   my ($self, $args) = @_;
   my @requests = @{$args->{'-special'}->{'http-requests'}}; # Unpack for readability
-#warn Dumper(\@requests);
   my @expected_responses = @{$args->{'-special'}->{'http-responses'}};
   my @regex_fields = @{$args->{'-special'}->{'regex-fields'}};
   my @matches;
@@ -27,7 +26,6 @@ sub http_req_res_list_location : Test : Plan(1)  {
 	 my $ua = LWP::UserAgent->new;
 	 subtest "First request" => sub {
 		my $request_no = 0;
-#		warn Dumper($requests[$request_no]);
 		my $response = $ua->request( $requests[$request_no] );
 		my $expected_response = $expected_responses[$request_no];
 		my $regex_fields = $regex_fields[$request_no];
@@ -76,7 +74,6 @@ sub http_req_res_list : Test : Plan(1)  {
 		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
 		}
 		my $response = $ua->request( $request );
-		warn $response->as_string;
 		my $expected_response = ${$args->{'-special'}->{'http-responses'}}[$i];
 		subtest "Request-response #" . ($i+1) =>
 		  \&_subtest_compare_req_res, $request, $response, $expected_response; #Callback syntax isn't pretty, admittedly
