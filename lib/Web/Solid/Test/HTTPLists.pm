@@ -26,7 +26,12 @@ sub http_req_res_list_location : Test : Plan(1)  {
 	 my $ua = LWP::UserAgent->new;
 	 subtest "First request" => sub {
 		my $request_no = 0;
-		my $response = $ua->request( $requests[$request_no] );
+		my $request = $requests[$request_no];
+		if ($args->{$bearer_predicate}) {
+		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
+		}
+
+		my $response = $ua->request( $request );
 		my $expected_response = $expected_responses[$request_no];
 		my $regex_fields = $regex_fields[$request_no];
 		my @expected_header_fields = $expected_response->header_field_names;
@@ -41,7 +46,7 @@ sub http_req_res_list_location : Test : Plan(1)  {
 		}
 		
 		#		subtest "Request-response #" . ($i+1) =>
-		_subtest_compare_req_res($requests[$request_no], $response, $expected_response);
+		_subtest_compare_req_res($request, $response, $expected_response);
 		# }
 	 };
 
@@ -55,9 +60,12 @@ sub http_req_res_list_location : Test : Plan(1)  {
 		  my $uri = URI->new_abs($matches[$request_no-1]->[0], $requests[$request_no-1]->uri);
 		  $request->uri($uri);
 		}
+		if ($args->{$bearer_predicate}) {
+		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
+		}
 		my $response = $ua->request($request);
 		my $expected_response = $expected_responses[$request_no];
-		_subtest_compare_req_res($requests[$request_no], $response, $expected_response);
+		_subtest_compare_req_res($request, $response, $expected_response);
 	 };
   };
 }
@@ -87,7 +95,7 @@ sub _subtest_compare_req_res {
   isa_ok($response, 'HTTP::Response');
   if ($expected_response->code) {
 	 is($response->code, $expected_response->code, "Response code is " . $expected_response->code)
-		|| note 'Returned content: ' . $response->content;
+		|| note 'Returned content: ' . $response->as_string;
   }
   my @expected_header_fields = $expected_response->header_field_names;
   if (scalar @expected_header_fields) {
