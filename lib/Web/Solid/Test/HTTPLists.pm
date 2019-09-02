@@ -78,16 +78,7 @@ sub http_req_res_list : Test : Plan(1)  {
 	 plan tests => scalar @requests;
 	 for (my $i=0; $i <= $#requests; $i++) {
 		my $request = $requests[$i];
-		if ($request->header('Origin')) {
-		  my $origin = URI->new($request->header('Origin'));
-		  if ($origin->path) {
-			 note('Origin had path "' . $origin->path . '". Probably unproblematic. Using only scheme and authority');
-			 my $new_origin = URI->new;
-			 $new_origin->scheme($origin->scheme);
-			 $new_origin->authority($origin->authority);
-			 $request->header('Origin' => $new_origin->as_string);
-		  }
-		}
+		_check_origin($request);
 		if ($args->{$bearer_predicate}) {
 		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
 		}
@@ -164,7 +155,20 @@ sub _create_authorization_field {
   return "Bearer $object";
 }
  
-
+sub _check_origin {
+  my $request = shift;
+  if ($request->header('Origin')) {
+	 my $origin = URI->new($request->header('Origin'));
+	 if ($origin->path) {
+		note('Origin had path "' . $origin->path . '". Probably unproblematic. Using only scheme and authority');
+		my $new_origin = URI->new;
+		$new_origin->scheme($origin->scheme);
+		$new_origin->authority($origin->authority);
+		$request->header('Origin' => $new_origin->as_string);
+	 }
+  }
+  return $request;
+}
 
 1;
 
