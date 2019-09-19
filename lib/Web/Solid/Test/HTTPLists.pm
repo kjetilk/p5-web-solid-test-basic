@@ -15,25 +15,23 @@ our $VERSION   = '0.002';
 
 my $bearer_predicate = 'http://example.org/httplist/param#bearer'; # TODO: Define proper URI
 
-sub http_req_res_list_location : Test : Plan(1)  {
+sub http_req_res_list_regex_reuser : Test : Plan(1)  {
   my ($self, $args) = @_;
-  my @requests = @{$args->{'-special'}->{'http-requests'}}; # Unpack for readability
-  my @expected_responses = @{$args->{'-special'}->{'http-responses'}};
-  my @regex_fields = @{$args->{'-special'}->{'regex-fields'}};
+  my @pairs = @{$args->{'-special'}->{'http-pairs'}}; # Unpack for readability
   my @matches;
   subtest $args->{'-special'}->{description} => sub {
-	 plan tests => scalar @requests;
+	 plan tests => scalar @pairs;
 	 my $ua = LWP::UserAgent->new;
 	 subtest "First request" => sub {
 		my $request_no = 0;
-		my $request = $requests[$request_no];
+		my $request = $pairs[$request_no]->{request};
 		if ($args->{$bearer_predicate}) {
 		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
 		}
 
 		my $response = $ua->request( $request );
-		my $expected_response = $expected_responses[$request_no];
-		my $regex_fields = $regex_fields[$request_no];
+		my $expected_response = $pairs[$request_no]->{response};
+		my $regex_fields = $pairs[$request_no]->{'regex-fields'};
 		my @expected_header_fields = $expected_response->header_field_names;
 		foreach my $expected_header_field (@expected_header_fields) { # TODO: Date-fields may fail if expectation is dynamic
 		  if ($regex_fields->{$expected_header_field}) { # Then, we have a regular expression from the RDF to match
@@ -52,19 +50,19 @@ sub http_req_res_list_location : Test : Plan(1)  {
 
 	 subtest "Second request" => sub {
 		my $request_no = 1;
-		my $request = $requests[$request_no];
+		my $request = $pairs[$request_no]->{request};
 		unless (defined($request->uri)) {
 		  # ASSUME: RequestURI was not given, it has to be derived from the previous request through a match
 		  # ASSUME: The first match of the previous request is the relative URI to be used for the this request
 		  # ASSUME: The base URI is the RequestURI for the previous request
-		  my $uri = URI->new_abs($matches[$request_no-1]->[0], $requests[$request_no-1]->uri);
+		  my $uri = URI->new_abs($matches[$request_no-1]->[0], $pairs[$request_no-1]->{request}->uri);
 		  $request->uri($uri);
 		}
 		if ($args->{$bearer_predicate}) {
 		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
 		}
 		my $response = $ua->request($request);
-		my $expected_response = $expected_responses[$request_no];
+		my $expected_response = $pairs[$request_no]->{response};
 		_subtest_compare_req_res($request, $response, $expected_response);
 	 };
   };
@@ -97,7 +95,7 @@ sub _subtest_compare_req_res {
   isa_ok($response, 'HTTP::Response');
   if ($expected_response->code) {
 	 is($response->code, $expected_response->code, "Response code is " . $expected_response->code)
-		|| note 'Returned content: ' . $response->as_string;
+		|| note "Returned content:\n" . $response->as_string;
   }
   my @expected_header_fields = $expected_response->header_field_names;
   if (scalar @expected_header_fields) {

@@ -12,17 +12,25 @@
         :check_acl_location
     ) .
 
-<http://example.org/httplist#http_req_res_list_location> a nfo:SoftwareItem ;
+<http://example.org/httplist#http_req_res_list_regex_reuser> a nfo:SoftwareItem ;
     deps:test-requirement "Web::Solid::Test::HTTPLists"^^deps:CpanId ;
-    nfo:definesFunction "http_req_res_list_location" .
+    nfo:definesFunction "http_req_res_list_regex_reuser" .
 
 
 :check_acl_location a test:AutomatedTest ;
     test:purpose "Determine location and write ACL document"@en ;
-    test:test_script <http://example.org/httplist#http_req_res_list_location> ;
+    test:test_script <http://example.org/httplist#http_req_res_list_regex_reuser> ;
     test:params [
-        test:requests ( :check_acl_location_req :put_new_acl_req ) ;
-        test:responses ( :check_acl_location_res :put_new_acl_res )
+        test:steps (
+            [
+                test:request :check_acl_location_req ;
+                test:response_assertion :check_acl_location_res
+            ]
+            [
+                test:request :put_new_acl_req ;
+                test:response_assertion :put_new_acl_res
+            ]
+        )
     ] .
 
 
