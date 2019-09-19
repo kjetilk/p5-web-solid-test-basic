@@ -42,10 +42,9 @@ sub http_req_res_list_regex_reuser : Test : Plan(1)  {
 			 $expected_response->remove_header($expected_header_field); # So that we can test the rest with reusable components
 		  }
 		}
-		
-		#		subtest "Request-response #" . ($i+1) =>
+
 		_subtest_compare_req_res($request, $response, $expected_response);
-		# }
+
 	 };
 
 	 subtest "Second request" => sub {
@@ -265,7 +264,7 @@ None
 =back
 
 
-=head2 C<< http_req_res_list_location >>
+=head2 C<< http_req_res_list_regex_reuser >>
 
 Runs a list of two HTTP request response pairs, using a regular
 expression from the first request to set the request URL of the
