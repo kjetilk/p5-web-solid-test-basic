@@ -72,21 +72,22 @@ sub http_req_res_list_location : Test : Plan(1)  {
 
 sub http_req_res_list : Test : Plan(1)  {
   my ($self, $args) = @_;
-  my @requests = @{$args->{'-special'}->{'http-requests'}}; # Unpack for readability
+  my @pairs = @{$args->{'-special'}->{'http-pairs'}}; # Unpack for readability
   my $ua = LWP::UserAgent->new;
   subtest $args->{'-special'}->{description} => sub {
-	 plan tests => scalar @requests;
-	 for (my $i=0; $i <= $#requests; $i++) {
-		my $request = $requests[$i];
+	 plan tests => scalar @pairs;
+	 my $counter = 1;
+	 foreach my $pair (@pairs) {
+		my $request = $pair->{request};
 		_check_origin($request);
 		if ($args->{$bearer_predicate}) {
 		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
 		}
 		my $response = $ua->request( $request );
-		my $expected_response = ${$args->{'-special'}->{'http-responses'}}[$i];
-		subtest "Request-response #" . ($i+1) =>
-		  \&_subtest_compare_req_res, $request, $response, $expected_response; #Callback syntax isn't pretty, admittedly
-	 }
+		subtest "Request-response #" . ($counter) =>
+		  \&_subtest_compare_req_res, $request, $response, $pair->{response}; #Callback syntax isn't pretty, admittedly
+		$counter++;
+	 }	 
   };
 }
 
