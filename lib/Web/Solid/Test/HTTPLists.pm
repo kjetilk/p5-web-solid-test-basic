@@ -85,7 +85,7 @@ sub http_req_res_list : Test : Plan(1)  {
 		subtest "Request-response #" . ($counter) =>
 		  \&_subtest_compare_req_res, $request, $response, $pair->{response}; #Callback syntax isn't pretty, admittedly
 		$counter++;
-	 }	 
+	 }
   };
 }
 
