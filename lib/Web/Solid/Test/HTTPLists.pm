@@ -205,20 +205,19 @@ tables to L<Test::FITesque>.
 
 =head1 IMPLEMENTED TESTS
 
+Apart from some author tests in this module, examples of actual tests
+can be found in the L<Solid Test Suite|https://github.com/solid/test-suite>.
+
+
 =head2 Test scripts
 
-This package provides C<tests/httplists.t> which runs tests over the
-fixture table in C<tests/data/http-list.ttl>. The test script requires the
-environment variable C<SOLID_REMOTE_BASE> to be set to the base URL
-that any relative URLs in the fixture tables will be resolved
-against. Thus, the fixture tables themselves are independent of the
-host that will run them.
+In general, tests are formulated in RDF fixture tables, which
+parameterizes the test cases. This parameterization is then given to
+the test scripts. It is intended therefore that only a small number of
+fairly general test scripts will be needed to provide an extensive
+test suite.
 
-To run the test script in the clone of this package, invoke it like this:
-
-  SOLID_REMOTE_BASE="https://kjetiltest4.dev.inrupt.net/" prove -l tests/basic.t
-
-
+These are the test scripts implemented in this module:
 
 
 =head2 C<< http_req_res_list >>
@@ -229,13 +228,21 @@ Runs a list of HTTP request response pairs, checking response against the respon
 
 =over
 
-=item * C<test:requests>
+=item * C<test:steps>
+
+A list of request-response pairs, declared using:
+
+=over
+
+=item * C<test:request>
 
 An RDF list of requests that will be executed towards the server in C<SOLID_REMOTE_BASE>.
 
-=item * C<test:responses>
+=item * C<test:response_assertion>
 
 An RDF list of responses that will be used as corresponding expected responses in the tests.
+
+=back
 
 =item * C<http://example.org/httplist/param#bearer>
 
@@ -243,7 +250,6 @@ A bearer token that if present will be used to authenticate the
 requests given by the above list. The object of this predicate can
 either be a literal bearer token, or a URL, in which case, it will be
 dereferenced and the content will be used as the bearer token.
-
 
 =back
 
