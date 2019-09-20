@@ -265,7 +265,8 @@ None
 
 =item 2. That the response code matches the expected one if given.
 
-=item 3. That all headers given in the expected response matches a header in the actual response.
+=item 3. That all headers given in the asserted response matches a
+header in the actual response.
 
 =back
 
@@ -274,7 +275,49 @@ None
 
 Runs a list of two HTTP request response pairs, using a regular
 expression from the first request to set the request URL of the
-second. To be detailed.
+second.
+
+=head3 Parameters
+
+Uses C<test:steps> like above.
+
+Additionally, the first request may have a regular expression that can
+be used to parse data for the next request. To examine the Link
+header, a response message can be formulated like (note, it practice
+it would be more complex):
+
+ :check_acl_location_res a http:ResponseMessage ;
+    httph:link '<(.*?)>;\\s+rel="acl"'^^dqm:regex ;
+    http:status 200 .
+
+The resulting match is placed in an array that will be used to set the
+Request URI of the next request.
+
+
+=head3 Environment
+
+None
+
+=head3 Implements
+
+=over
+
+=item 1. That the regular expression in the first request matches.
+
+=item 2. That responses are L<HTTP::Response> objects.
+
+=item 3. That the response code matches the expected one if given.
+
+=item 4. That headers that are not matched as regular expression but
+given in the asserted response matches a header in the actual
+response.
+
+
+=head3 Assumptions
+
+See the source for details.
+
+
 
 
 =head1 NOTE
