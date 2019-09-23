@@ -312,6 +312,8 @@ None
 given in the asserted response matches a header in the actual
 response.
 
+=back
+
 
 =head3 Assumptions
 
@@ -342,8 +344,6 @@ will be changed before an 1.0 release of the system.
 
 Please report any bugs to
 L<https://github.com/kjetilk/p5-web-solid-test-basic/issues>.
-
-=head1 SEE ALSO
 
 =head1 AUTHOR
 
