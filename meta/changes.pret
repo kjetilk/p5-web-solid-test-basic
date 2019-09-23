@@ -1,5 +1,15 @@
 # This file acts as the project's changelog.
 
+`Web-Solid-Test-Basic 0.003_01 cpan:KJETILK`
+    issued  2019-09-23;
+    label   "Improve the RDF" ;
+    changeset [
+        dcs:versus `Web-Solid-Test-Basic 0.002 cpan:KJETILK`;
+        item [ rdfs:label "Improve documentation."; a dcs:Documentation; ] ;
+	item [ rdfs:label "Restructure HTTP request-response pair parameterization."; a dcs:BackCompat; ]
+    ] .
+
+
 `Web-Solid-Test-Basic 0.002 cpan:KJETILK`
     issued  2019-08-27;
     label   "Authentication" ;
