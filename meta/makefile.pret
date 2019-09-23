@@ -6,7 +6,7 @@
     :runtime-requirement    [ :on "Test::More 0.96"^^:CpanId ];
     :runtime-requirement    [ :on "Test::Deep"^^:CpanId ];
     :runtime-requirement    [ :on "Test::RDF"^^:CpanId ];
-    :runtime-requirement    [ :on "Test::FITesque::RDF 0.013_01"^^:CpanId ];
+    :runtime-requirement    [ :on "Test::FITesque::RDF 0.014"^^:CpanId ];
     :runtime-requirement    [ :on "FindBin"^^:CpanId ];
     :runtime-requirement    [ :on "LWP::UserAgent::https"^^:CpanId ];
     :runtime-requirement    [ :on "IO::Socket::SSL"^^:CpanId ];

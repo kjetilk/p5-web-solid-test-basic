@@ -1,6 +1,6 @@
 # This file acts as the project's changelog.
 
-`Web-Solid-Test-Basic 0.003_01 cpan:KJETILK`
+`Web-Solid-Test-Basic 0.004 cpan:KJETILK`
     issued  2019-09-23;
     label   "Improve the RDF" ;
     changeset [
