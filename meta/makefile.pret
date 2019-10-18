@@ -10,6 +10,8 @@
     :runtime-requirement    [ :on "FindBin"^^:CpanId ];
     :runtime-requirement    [ :on "LWP::UserAgent::https"^^:CpanId ];
     :runtime-requirement    [ :on "IO::Socket::SSL"^^:CpanId ];
+    :runtime-requirement    [ :on "LPW::UserAgent"^^:CpanId ];
+    :runtime-requirement    [ :on "Test::FITesque::Fixture"^^:CpanId ];
     :develop-recommendation [ :on "Dist::Inkt 0.001"^^:CpanId ];
     :develop-recommendation [ :on "Web::Simple"^^:CpanId ];
     :develop-recommendation [ :on "Plack"^^:CpanId ];
