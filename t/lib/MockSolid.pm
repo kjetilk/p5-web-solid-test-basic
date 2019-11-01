@@ -6,6 +6,7 @@ use Plack::Request;
 package MockSolid;
 use Web::Simple;
 use Plack::Middleware::CrossOrigin;
+use parent qw( Plack::Component );
 
 sub dispatch_request {
   'HEAD'=> sub {
@@ -30,6 +31,6 @@ sub dispatch_request {
   }
 }
 
-MockSolid->run_if_script;
 
 1;
+

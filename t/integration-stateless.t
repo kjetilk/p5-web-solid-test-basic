@@ -38,24 +38,14 @@ use MockSolid;
 use MockServer;
 
 
-
-my $port=8881;
-my $host='localhost';
-
-my $server = MockServer->new($port);
-$server->host($host);
-my $app = sub { MockSolid->run_psgi(@_) };
-$server->app($app);
-
-my $url_root = $server->started_ok("start up my web server");
-
-sleep(20);
+my $server = MockServer->new;
 my $file = $Bin . '/data/http-basic.ttl';
 
-
-my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $url_root)->suite;
+my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $server->base_uri)->suite;
 
 $suite->run_tests;
+
+$server->kill;
 
 done_testing;
   
