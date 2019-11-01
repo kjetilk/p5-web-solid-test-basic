@@ -6,10 +6,6 @@ use Plack::Request;
 package MockSolid;
 use Web::Simple;
 use Plack::Middleware::CrossOrigin;
-use Test::HTTP::Server::Simple;
-use HTTP::Server::Simple::PSGI;
-use base qw/Test::HTTP::Server::Simple HTTP::Server::Simple::PSGI/;
-
 
 sub dispatch_request {
   'HEAD'=> sub {
@@ -34,6 +30,6 @@ sub dispatch_request {
   }
 }
 
-#MockSolid->run_if_script;
+MockSolid->run_if_script;
 
 1;

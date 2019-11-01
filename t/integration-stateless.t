@@ -35,25 +35,25 @@ use Test::FITesque::Test;
 use Test::FITesque::RDF;
 use FindBin qw($Bin);
 use MockSolid;
+use MockServer;
 
 
 
 my $port=8881;
 my $host='localhost';
 
-my $server = MockSolid->new();
+my $server = MockServer->new($port);
 $server->host($host);
 my $app = sub { MockSolid->run_psgi(@_) };
 $server->app($app);
 
 my $url_root = $server->started_ok("start up my web server");
-die $url_root;
 
-
+sleep(20);
 my $file = $Bin . '/data/http-basic.ttl';
 
 
-my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $url_root)->suite;
 
 $suite->run_tests;
 
