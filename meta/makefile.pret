@@ -3,6 +3,12 @@
 @prefix : <http://ontologi.es/doap-deps#>.
 
 `Web-Solid-Test-Basic`
+    :test-requirement       [ :on "Net::EmptyPort"^^:CpanId ];
+    :test-requirement       [ :on "Types::Standard"^^:CpanId ];		
+    :test-requirement       [ :on "HTTP::Server::Simple::PSGI"^^:CpanId ];
+    :test-requirement       [ :on "Web::Simple"^^:CpanId ];
+    :test-requirement       [ :on "Plack"^^:CpanId ];
+    :test-requirement       [ :on "Plack::Middleware::CrossOrigin"^^:CpanId ];
     :runtime-requirement    [ :on "Test::More 0.96"^^:CpanId ];
     :runtime-requirement    [ :on "Test::Deep"^^:CpanId ];
     :runtime-requirement    [ :on "Test::RDF"^^:CpanId ];
@@ -13,8 +19,5 @@
     :runtime-requirement    [ :on "LPW::UserAgent"^^:CpanId ];
     :runtime-requirement    [ :on "Test::FITesque::Fixture"^^:CpanId ];
     :develop-recommendation [ :on "Dist::Inkt 0.001"^^:CpanId ];
-    :develop-recommendation [ :on "Web::Simple"^^:CpanId ];
-    :develop-recommendation [ :on "Plack"^^:CpanId ];
-    :develop-recommendation [ :on "Plack::Middleware::CrossOrigin"^^:CpanId ];
 	.
 
