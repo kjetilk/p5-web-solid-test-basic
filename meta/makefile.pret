@@ -14,9 +14,9 @@
     :runtime-requirement    [ :on "Test::RDF"^^:CpanId ];
     :runtime-requirement    [ :on "Test::FITesque::RDF 0.014"^^:CpanId ];
     :runtime-requirement    [ :on "FindBin"^^:CpanId ];
-    :runtime-requirement    [ :on "LWP::UserAgent::https"^^:CpanId ];
+    :runtime-requirement    [ :on "LWP::Protocol::https"^^:CpanId ];
     :runtime-requirement    [ :on "IO::Socket::SSL"^^:CpanId ];
-    :runtime-requirement    [ :on "LPW::UserAgent"^^:CpanId ];
+    :runtime-requirement    [ :on "LWP::UserAgent"^^:CpanId ];
     :runtime-requirement    [ :on "Test::FITesque::Fixture"^^:CpanId ];
     :develop-recommendation [ :on "Dist::Inkt 0.001"^^:CpanId ];
 	.
