@@ -34,7 +34,6 @@ use Test::FITesque;
 use Test::FITesque::Test;
 use Test::FITesque::RDF;
 use FindBin qw($Bin);
-use MockSolid;
 use MockServer;
 
 

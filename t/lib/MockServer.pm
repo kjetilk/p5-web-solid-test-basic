@@ -64,6 +64,7 @@ use Moo;
 use HTTP::Server::Simple::PSGI;
 use Net::EmptyPort qw(empty_port);
 use Types::Standard qw(Int);
+use MockSolid;
 
 has pid => ( is => 'rw',
 				 isa => Int

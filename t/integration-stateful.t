@@ -26,19 +26,24 @@ This is free software, licensed under:
 
 use strict;
 use warnings;
+use lib 't/lib';
 
 use Test::More;
 use Test::FITesque;
 use Test::FITesque::Test;
 use Test::FITesque::RDF;
 use FindBin qw($Bin);
+use MockServer;
 
+my $server = MockServer->new;
 my $file = $Bin . '/data/http-put-check-acl.ttl';
 
 
-my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $server->base_uri)->suite;
 
 $suite->run_tests;
+
+$server->kill;
 
 done_testing;
 
