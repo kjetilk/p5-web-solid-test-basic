@@ -1,3 +1,60 @@
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+MockServer - Very minimal mock server to test the Solid tests
+
+=head1 SYNOPSIS
+
+ my $server = MockServer->new;
+ my $suite = InitializeClientHere->new(base_uri => $server->base_uri);
+ $suite->run_tests;
+ $server->kill;
+
+
+=head1 DESCRIPTION
+
+L<HTTP::Server::Simple::PSGI>-based Web Server that starts the L<MockSolid> server in the background.
+
+=head2 METHODS AND ATTRIBUTES
+
+=over
+
+=item * C<< pid >>
+
+The process ID of the server.
+
+=item * C<< base_uri >>
+
+Will actually start the server and return the base URI of the server.
+
+=item * C<< kill >>
+
+Will kill the server with the C<pid>.
+
+=back
+
+=head1 TODO
+
+Start the server in the constructor rather than in C<base_uri>.
+
+=head1 AUTHOR
+
+Kjetil Kjernsmo E<lt>kjetilk@cpan.orgE<gt>.
+
+=head1 COPYRIGHT AND LICENCE
+
+This software is Copyright (c) 2019 by Inrupt Inc.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+
+=cut
+
 use strict;
 use warnings;
 use Plack::Request;
