@@ -11,7 +11,7 @@ use Test::RDF;
 use Data::Dumper;
 
 our $AUTHORITY = 'cpan:KJETILK';
-our $VERSION   = '0.004';
+our $VERSION   = '0.005_01';
 
 my $bearer_predicate = 'http://example.org/httplist/param#bearer'; # TODO: Define proper URI
 

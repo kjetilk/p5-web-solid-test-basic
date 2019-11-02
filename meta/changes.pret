@@ -1,5 +1,14 @@
 # This file acts as the project's changelog.
 
+`Web-Solid-Test-Basic 0.005_01 cpan:KJETILK`
+    issued  2019-11-02;
+    label   "Make integration tests fully automated" ;
+    changeset [
+        dcs:versus `Web-Solid-Test-Basic 0.004 cpan:KJETILK`;
+	item [ rdfs:label "Fix prerequires."; a dcs:bugfix; dcs:thanks cpan:MANWAR; ] ;	
+	item [ rdfs:label "Move HTTP integration tests from author tests to normal tests, and make them fully automated."; a dcs:Change; ]
+    ] .
+
 `Web-Solid-Test-Basic 0.004 cpan:KJETILK`
     issued  2019-09-23;
     label   "Improve the RDF" ;
