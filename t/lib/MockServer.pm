@@ -73,7 +73,7 @@ has pid => ( is => 'rw',
 sub base_uri {
   my $self = shift;
   my $port=empty_port();
-  my $host='localhost';
+  my $host='127.0.0.1';
 
   my $server = HTTP::Server::Simple::PSGI->new($port);
   $server->host($host);
