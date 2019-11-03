@@ -1,4 +1,33 @@
-#!/usr/bin/env perl
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+MockSolid - Very minimal mock implementation to test the Solid tests
+
+=head1 DESCRIPTION
+
+This is a very minimal L<Web::Simple> Web server to allow some minimal
+test scripts to run against an actual server, to test that the test
+scripts themselves run.
+
+
+=head1 AUTHOR
+
+Kjetil Kjernsmo E<lt>kjetilk@cpan.orgE<gt>.
+
+=head1 COPYRIGHT AND LICENCE
+
+This software is Copyright (c) 2019 by Inrupt Inc.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+
+=cut
+
 use strict;
 use warnings;
 use Plack::Request;
@@ -6,6 +35,7 @@ use Plack::Request;
 package MockSolid;
 use Web::Simple;
 use Plack::Middleware::CrossOrigin;
+use parent qw( Plack::Component );
 
 sub dispatch_request {
   'HEAD'=> sub {
@@ -30,4 +60,6 @@ sub dispatch_request {
   }
 }
 
-MockSolid->run_if_script;
+
+1;
+

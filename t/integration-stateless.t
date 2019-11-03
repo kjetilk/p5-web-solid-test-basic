@@ -4,7 +4,7 @@
 
 =head1 PURPOSE
 
-Mock a HTTP interface to test the tests, stateful
+Mock a HTTP interface to test the tests
 
 =head1 ENVIRONMENT
 
@@ -27,19 +27,25 @@ This is free software, licensed under:
 use strict;
 use warnings;
 
+use lib 't/lib';
+
 use Test::More;
 use Test::FITesque;
 use Test::FITesque::Test;
 use Test::FITesque::RDF;
 use FindBin qw($Bin);
+use MockServer;
 
-my $file = $Bin . '/data/http-put-check-acl.ttl';
 
+my $server = MockServer->new;
+my $file = $Bin . '/data/http-basic.ttl';
 
-my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $server->base_uri)->suite;
 
 $suite->run_tests;
 
-done_testing;
+$server->kill;
 
+done_testing;
+  
 
