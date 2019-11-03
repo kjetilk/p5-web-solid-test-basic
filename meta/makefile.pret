@@ -12,7 +12,7 @@
     :test-requirement       [ :on "URI"^^:CpanId ];
     :test-requirement       [ :on "Plack::Middleware::CrossOrigin"^^:CpanId ];
     :runtime-requirement    [ :on "Test::More 0.96"^^:CpanId ];
-    :runtime-requirement    [ :on "perl 5.14"^^:CpanId ];
+    :runtime-requirement    [ :on "perl 5.014"^^:CpanId ];
     :runtime-requirement    [ :on "parent"^^:CpanId ];
     :runtime-requirement    [ :on "Test::Deep"^^:CpanId ];
     :runtime-requirement    [ :on "Test::RDF"^^:CpanId ];
