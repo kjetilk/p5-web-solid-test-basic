@@ -1,7 +1,7 @@
 # This file acts as the project's changelog.
 
-`Web-Solid-Test-Basic 0.005_02 cpan:KJETILK`
-    issued  2019-11-02;
+`Web-Solid-Test-Basic 0.006 cpan:KJETILK`
+    issued  2019-11-03;
     label   "Make integration tests fully automated" ;
     changeset [
         dcs:versus `Web-Solid-Test-Basic 0.004 cpan:KJETILK`;
