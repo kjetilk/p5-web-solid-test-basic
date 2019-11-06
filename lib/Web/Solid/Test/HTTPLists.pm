@@ -147,7 +147,7 @@ sub _create_authorization_field {
 		$bearer_url->query("aud=$aud_url");
 	 }
 	 my $response = $ua->get($bearer_url);
-	 BAIL_OUT 'Could not retrieve bearer token from ' . $bearer_url->as_string unless $response->is_success;
+	 BAIL_OUT 'Could not retrieve bearer token, got error ' . $response->as_string unless $response->is_success;
 	 $object = $response->content;
   }
   return "Bearer $object";
