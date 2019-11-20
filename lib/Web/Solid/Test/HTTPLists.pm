@@ -335,6 +335,13 @@ variable C<SOLID_SSL_FINGERPRINT>. The fingerprint can be obtained for
 example by visiting the system under test in a browser and examine the
 certificate details from there.
 
+There are two SSL implementations in wide use, L<Net::SSL> and
+L<IO::Socket::SSL>. The latter has largely supplantet the former, and
+the the former has been known to cause the test suite to "hang" for
+two minutes. Nevertheless, certain setups may still have it as the
+default. To ensure that L<IO::Socket::SSL> is used, the environment
+variable C<PERL_NET_HTTPS_SSL_SOCKET_CLASS> can be set to
+C<IO::Socket::SSL>
 
 
 
