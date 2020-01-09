@@ -66,6 +66,7 @@ sub http_put_readback_unauthenticated : Test : Plan(4) {
   my $ua = LWP::UserAgent->new;
   my $url = $args->{url};
   my $content = '<https://example.org/foo> a <https://example.org/Dahut> .';
+  $ua->default_header('If-None-Match': '*');
   my $resput = $ua->put( $url, Content => $content );
   note($args->{description});
   ok($resput->is_success, "Successful PUT request for $url");
@@ -82,6 +83,7 @@ sub http_write_with_bearer : Test : Plan(1) {
  SKIP: {
     skip 'SOLID_BEARER_TOKEN needs to set for this test', 1 unless ($ENV{SOLID_BEARER_TOKEN});
 	 my $ua = LWP::UserAgent->new;
+         $ua->default_header('If-None-Match': '*');
 	 $ua->default_header('Authorization' => 'Bearer ' . $ENV{SOLID_BEARER_TOKEN},
 								'Content-Type' => 'text/turtle'
 							  );
@@ -104,6 +106,9 @@ sub http_methods_with_bearer : Test : Plan(1) {
 							  );
 	 my $url = $args->{url};
 	 my $method = $args->{method};
+         if ($method == 'PUT') {
+             $ua->default_header('If-None-Match': '*');
+         }
 	 my $res = $ua->request( HTTP::Request->new($method => $url), Content => $args->{body} );
 	 is($res->code, $args->{code}, "Using $method for request for $url");
   }
