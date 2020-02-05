@@ -94,7 +94,7 @@ sub _subtest_compare_req_res {
   isa_ok($response, 'HTTP::Response');
   if ($expected_response->code) {
 	 my $code = $expected_response->code;
-	 like($response->code, qr/$code/, "Response code is " . $response->code)
+	 like($response->code, qr/$code/, "Response code matches " . $expected_response->code)
 		|| note "Returned content:\n" . $response->as_string;
   }
   my @expected_header_fields = $expected_response->header_field_names;
