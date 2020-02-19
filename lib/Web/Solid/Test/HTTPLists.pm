@@ -53,9 +53,15 @@ sub http_req_res_list_regex_reuser : Test : Plan(1)  {
 		unless (defined($request->uri)) {
 		  # ASSUME: RequestURI was not given, it has to be derived from the previous request through a match
 		  # ASSUME: The first match of the previous request is the relative URI to be used for the this request
-		  # ASSUME: The base URI is the RequestURI for the previous request
-		  my $uri = URI->new_abs($matches[$request_no-1]->[0], $pairs[$request_no-1]->{request}->uri);
-		  $request->uri($uri);
+		  my $relative = $matches[$request_no-1]->[0];
+		  if (defined($relative)) {
+			 # ASSUME: The base URI is the RequestURI for the previous request
+			 my $uri = URI->new_abs($relative, $pairs[$request_no-1]->{request}->uri);
+			 $request->uri($uri);
+		  } else {
+			 fail("No relative URI was found in previous test");
+			 return;
+		  }
 		}
 		if ($args->{$bearer_predicate}) {
 		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
