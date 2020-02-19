@@ -53,6 +53,7 @@ sub http_req_res_list_regex_reuser : Test : Plan(1)  {
 		unless (defined($request->uri)) {
 		  # ASSUME: RequestURI was not given, it has to be derived from the previous request through a match
 		  # ASSUME: The first match of the previous request is the relative URI to be used for the this request
+		  # TODO: What if the match was absolute, not relative?
 		  my $relative = $matches[$request_no-1]->[0];
 		  if (defined($relative)) {
 			 # ASSUME: The base URI is the RequestURI for the previous request
