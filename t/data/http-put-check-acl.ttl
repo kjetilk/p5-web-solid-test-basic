@@ -74,6 +74,10 @@ acl:mode acl:Read. """ .
                 test:request :get_slug_req  ;
                 test:response_assertion :ok_res
             ]
+            [
+                test:request :delete_slug_req  ;
+                test:response_assertion :deleted_ok_res
+            ]
         )
     ] .
 
@@ -99,3 +103,8 @@ acl:mode acl:Read. """ .
 :ok_res a http:ResponseMessage ;
     http:status 200 .
 
+:delete_slug_req a http:RequestMessage ;
+    http:method "DELETE" .
+
+:deleted_ok_res a http:ResponseMessage ;
+    http:status "200|204"^^dqm:regex .
