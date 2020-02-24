@@ -63,7 +63,7 @@ sub http_req_res_list_regex_reuser : Test : Plan(1)  {
 				$request->uri($uri);
 			 } else {
 				fail("No relative URI was found in the first test");
-				next;
+				return;
 			 }
 		  }
 		  if ($args->{$bearer_predicate}) {
