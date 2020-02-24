@@ -47,30 +47,33 @@ sub http_req_res_list_regex_reuser : Test : Plan(1)  {
 
 	 };
 
-	 subtest "Second request" => sub {
-		my $request_no = 1;
-		my $request = $pairs[$request_no]->{request};
-		unless (defined($request->uri)) {
-		  # ASSUME: RequestURI was not given, it has to be derived from the previous request through a match
-		  # ASSUME: The first match of the previous request is the relative URI to be used for the this request
-		  # TODO: What if the match was absolute, not relative?
-		  my $relative = $matches[$request_no-1]->[0];
-		  if (defined($relative)) {
-			 # ASSUME: The base URI is the RequestURI for the previous request
-			 my $uri = URI->new_abs($relative, $pairs[$request_no-1]->{request}->uri);
-			 $request->uri($uri);
-		  } else {
-			 fail("No relative URI was found in previous test");
-			 return;
+	 # ASSUME: The first request sets the relative URI that can be used by subsequent requests
+	 # ASSUME: The first match of the first request is the relative URI to be used for the this request
+	 my $relative = $matches[0]->[0];
+	 for (my $request_no = 1; $request_no < @pairs; $request_no++) {
+		my $pair = $pairs[$request_no];
+		subtest "Request-response #" . ($request_no+1) => sub {
+		  my $request = $pair->{request};
+		  unless (defined($request->uri)) {
+			 # ASSUME: RequestURI was not given, it has to be derived from the previous request through a match
+			 # TODO: What if the match was absolute, not relative?
+			 if (defined($relative)) {
+				# ASSUME: The base URI is the RequestURI for the first request
+				my $uri = URI->new_abs($relative, $pairs[0]->{request}->uri);
+				$request->uri($uri);
+			 } else {
+				fail("No relative URI was found in the first test");
+				return;
+			 }
 		  }
-		}
-		if ($args->{$bearer_predicate}) {
-		  $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
-		}
-		my $response = $ua->request($request);
-		my $expected_response = $pairs[$request_no]->{response};
-		_subtest_compare_req_res($request, $response, $expected_response);
-	 };
+		  if ($args->{$bearer_predicate}) {
+			 $request->header( 'Authorization' => _create_authorization_field($args->{$bearer_predicate}, $request->uri));
+		  }
+		  my $response = $ua->request($request);
+		  my $expected_response = $pairs[$request_no]->{response};
+		  _subtest_compare_req_res($request, $response, $expected_response);
+		};
+	 }
   };
 }
 
