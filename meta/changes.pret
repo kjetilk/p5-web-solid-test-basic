@@ -1,5 +1,15 @@
 # This file acts as the project's changelog.
 
+`Web-Solid-Test-Basic 0.010 cpan:KJETILK`
+    issued  2020-02-24;
+    label   "Improve support when using regular expressions" ;
+    changeset [
+        dcs:versus `Web-Solid-Test-Basic 0.008 cpan:KJETILK`;
+	item [ rdfs:label "Document problems with Net::SSL"; a dcs:Documentation; ] ;
+	item [ rdfs:label "Use regular expression matching for status codes"; a dcs:Addition; ] ;
+	item [ rdfs:label "Allow for more tests in regexp reuser."; a dcs:Addition; ]
+    ] .
+
 `Web-Solid-Test-Basic 0.008 cpan:KJETILK`
     issued  2019-11-20;
     label   "Ensure that IO::Socket::SSL can be used" ;

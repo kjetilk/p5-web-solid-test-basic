@@ -293,7 +293,7 @@ second.
 Uses C<test:steps> like above.
 
 Additionally, the first request may have a regular expression that can
-be used to parse data for the next request. To examine the Link
+be used to parse data for the next request(s). To examine the Link
 header, a response message can be formulated like (note, it practice
 it would be more complex):
 
@@ -302,7 +302,7 @@ it would be more complex):
     http:status 200 .
 
 The resulting match is placed in an array that will be used to set the
-Request URI of the next request.
+Request URI of the next request(s).
 
 
 =head3 Environment
