@@ -274,7 +274,7 @@ None
 
 =item 1. That responses are L<HTTP::Response> objects.
 
-=item 2. That the response code matches the expected one if given.
+=item 2. That the response code matches the expected one if given. A regular expression may be used.
 
 =item 3. That all headers given in the asserted response matches a
 header in the actual response.
