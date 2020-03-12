@@ -4,11 +4,11 @@
 @prefix dc:   <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#>.
 
-`Web-Solid-Test-Basic`
+`Web-Solid-Test`
    :programming-language "Perl" ;
-   :shortdesc            "Basic Solid Tests";
-   :homepage             <https://metacpan.org/release/Web-Solid-Test-Basic>;
-   :download-page        <https://metacpan.org/release/Web-Solid-Test-Basic>;
+   :shortdesc            "Solid Test Scriptss";
+   :homepage             <https://metacpan.org/release/Web-Solid-Test>;
+   :download-page        <https://metacpan.org/release/Web-Solid-Test>;
    :bug-database         <https://github.com/kjetilk/p5-web-solid-test-basic/issues>;
    :repository           [ a :GitRepository;
                            :browse <https://github.com/kjetilk/p5-web-solid-test-basic>;

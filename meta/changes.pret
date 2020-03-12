@@ -1,5 +1,14 @@
 # This file acts as the project's changelog.
 
+`Web-Solid-Test 0.011_01 cpan:KJETILK`
+    issued  2020-03-12;
+    label   "Rename the distribution" ;
+    changeset [
+        dcs:versus `Web-Solid-Test-Basic 0.010 cpan:KJETILK`;
+	item [ rdfs:label "Add a POD for the main documentation"; a dcs:Addition; ] ;
+	item [ rdfs:label "Rename the distribution."; a dcs:Change; ]
+    ] .
+
 `Web-Solid-Test-Basic 0.010 cpan:KJETILK`
     issued  2020-02-24;
     label   "Improve support when using regular expressions" ;

@@ -2,7 +2,7 @@
 
 @prefix : <http://ontologi.es/doap-deps#>.
 
-`Web-Solid-Test-Basic`
+`Web-Solid-Test`
     :test-requirement       [ :on "Net::EmptyPort"^^:CpanId ];
     :test-requirement       [ :on "Types::Standard"^^:CpanId ];		
     :test-requirement       [ :on "HTTP::Server::Simple::PSGI"^^:CpanId ];
