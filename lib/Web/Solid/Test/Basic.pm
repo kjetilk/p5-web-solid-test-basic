@@ -136,35 +136,8 @@ See C<tests/basic.t> for a full example.
 
 =head1 DESCRIPTION
 
-=head2 Introduction
-
-The basic idea with these tests is to simplify reuse and formulation
-of fixture tables using the Resource Description Framework (RDF). It
-is in a very early stage, but there are running tests in this module.
-
-This system is built on L<Test::FITesque::RDF>, which adds RDF fixture
-tables to L<Test::FITesque>.
-
-Then, the idea is that modules such as this will provide a reusable
-implementation of certain tests, and that they can be adapted to
-concrete test scenarios by either passing parameters from the RDF
-tables (for both input variables and expected outcomes), or using
-environment variables.
-
-To run the actual tests, test scripts will be made, but they should be
-terse as their only mission is to initialize the test framework, see
-the synopsis for an example of such a script. The script can then be
-invoked by e.g. CI systems or used in development.
-
-The RDF fixture tables and the small wrapper scripts can exist
-independently of the module, and modules can be installed easily so
-that they can be reused. Nevertheless, it is also natural to package
-these together, like it has been done in this package.
-
-Each module like this one will need to document the tests it
-implements, consider the below an example of how this should be done.
-
-
+See L<Web::Solid::Test> for an introduction to the idea behind these
+test modules.
 
 =head1 IMPLEMENTED TESTS
 
