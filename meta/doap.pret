@@ -6,7 +6,7 @@
 
 `Web-Solid-Test`
    :programming-language "Perl" ;
-   :shortdesc            "Solid Test Scriptss";
+   :shortdesc            "Solid Test Scripts";
    :homepage             <https://metacpan.org/release/Web-Solid-Test>;
    :download-page        <https://metacpan.org/release/Web-Solid-Test>;
    :bug-database         <https://github.com/kjetilk/p5-web-solid-test-basic/issues>;
