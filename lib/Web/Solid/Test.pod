@@ -54,6 +54,7 @@ The tests will live in test modules, currently, this distribution contains
 =over
 
 =item * L<Web::Solid::Test::Basic>
+
 =item * L<Web::Solid::Test::HTTPLists>
 
 =back
@@ -73,7 +74,7 @@ L<https://github.com/kjetilk/p5-web-solid-test-basic/issues>.
 
 =head1 SEE ALSO
 
-The L<Solid Test Suite|https://github.com/solid/test-suite>.
+This was primarily developed for the L<Solid Test Suite|https://github.com/solid/test-suite>.
 
 =head1 AUTHOR
 
