@@ -1,25 +1,25 @@
 # NAME
 
-Web::Solid::Test::Basic - Basic Solid Tests
+Web::Solid::Test - Solid Test Scripts
+
+# VERSION
+
+Version 0.011\_01
 
 # SYNOPSIS
 
-```perl
-use Test::FITesque::RDF;
-my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
-$suite->run_tests;
-done_testing;
-```
+    use Test::FITesque::RDF;
+    my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+    $suite->run_tests;
+    done_testing;
 
 See `tests/basic.t` for a full example.
 
 # DESCRIPTION
 
-## Introduction
-
 The basic idea with these tests is to simplify reuse and formulation
 of fixture tables using the Resource Description Framework (RDF). It
-is in a very early stage, but there are running tests in this module.
+is in an early stage, but there are running tests in this module.
 
 This system is built on [Test::FITesque::RDF](https://metacpan.org/pod/Test::FITesque::RDF), which adds RDF fixture
 tables to [Test::FITesque](https://metacpan.org/pod/Test::FITesque).
@@ -40,75 +40,15 @@ independently of the module, and modules can be installed easily so
 that they can be reused. Nevertheless, it is also natural to package
 these together, like it has been done in this package.
 
-Each module like this one will need to document the tests it
-implements, consider the below an example of how this should be done.
+# TEST MODULES
 
-# IMPLEMENTED TESTS
+The tests will live in test modules, currently, this distribution contains
 
-## Test scripts
+- [Web::Solid::Test::Basic](https://metacpan.org/pod/Web::Solid::Test::Basic)
+=item \* [Web::Solid::Test::HTTPLists](https://metacpan.org/pod/Web::Solid::Test::HTTPLists)
 
-This package provides `tests/basic.t` which runs tests over the
-fixture table in `tests/data/basic.ttl`. The test script requires the
-environment variable `SOLID_REMOTE_BASE` to be set to the base URL
-that any relative URLs in the fixture tables will be resolved
-against. Thus, the fixture tables themselves are independent of the
-host that will run them.
-
-To run the test script in the clone of this package, invoke it like this:
-
-```
-SOLID_REMOTE_BASE="https://kjetiltest4.dev.inrupt.net/" prove -l tests/basic.t
-```
-
-## `http_read_unauthenticated`
-
-Some basic tests for HTTP reads.
-
-### Parameters
-
-- `url`
-
-    The URL to request.
-
-### Environment
-
-None
-
-### Implements
-
-- 1. That an HTTP HEAD request to the given URL succeeds.
-- 2. That an HTTP GET request to the given URL succeeds.
-- 3. That the HEAD and GET requests had the same header fields.
-- 4. That the values of the header fields are the same.
-
-## `http_write_with_bearer`
-
-Test for successful HTTP PUT authenticated with a Bearer token
-
-### Parameters
-
-- `url`
-
-    The URL to request.
-
-### Environment
-
-Set `SOLID_BEARER_TOKEN` to the bearer token to be used in the authorization header.
-
-### Implements
-
-- 1. That an HTTP PUT request to the given URL with a short Turtle payload succeeds.
-
-# NOTE
-
-The parameters above are in the RDF formulated as actual full URIs,
-but where the local part is used here and resolved by the
-[Test::FITesque::RDF](https://metacpan.org/pod/Test::FITesque::RDF) framework, see its documentation for details.
-
-# TODO
-
-The namespaces used in the current fixture tables are examples, and
-will be changed before an 1.0 release of the system.
+Within these, there are test scripts in the form of subroutines
+containing subtests. These are then referenced from the fixture tables. 
 
 # BUGS
 
@@ -116,6 +56,8 @@ Please report any bugs to
 [https://github.com/kjetilk/p5-web-solid-test-basic/issues](https://github.com/kjetilk/p5-web-solid-test-basic/issues).
 
 # SEE ALSO
+
+The [Solid Test Suite](https://github.com/solid/test-suite).
 
 # AUTHOR
 
@@ -127,9 +69,7 @@ This software is Copyright (c) 2019 by Inrupt Inc.
 
 This is free software, licensed under:
 
-```
-The MIT (X11) License
-```
+    The MIT (X11) License
 
 # DISCLAIMER OF WARRANTIES
 
