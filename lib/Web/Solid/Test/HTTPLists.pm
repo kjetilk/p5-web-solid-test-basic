@@ -11,7 +11,7 @@ use Test::RDF;
 use Data::Dumper;
 
 our $AUTHORITY = 'cpan:KJETILK';
-our $VERSION   = '0.010';
+our $VERSION   = '0.011_01';
 
 my $bearer_predicate = 'http://example.org/httplist/param#bearer'; # TODO: Define proper URI
 
@@ -207,8 +207,8 @@ A script C<tests/httplists.t> can be used to launch some of these tests.
 The basic idea with these tests is to simplify reuse and formulation
 of fixture tables using the Resource Description Framework (RDF), in
 this case using HTTP vocabularies to formulate lists of requests and
-responses. It is in a very early stage, but there are running tests in
-this module. See L<Web::Solid::Test::Basic> for more on the
+responses. It is in an early stage, but there are running tests in
+this module. See L<Web::Solid::Test> for more on the
 philosophy.
 
 This system is built on L<Test::FITesque::RDF>, which adds RDF fixture

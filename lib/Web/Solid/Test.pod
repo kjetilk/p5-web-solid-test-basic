@@ -1,28 +1,35 @@
-# NAME
+
+=pod
+
+=encoding utf-8
+
+=head1 NAME
 
 Web::Solid::Test - Solid Test Scripts
 
-# VERSION
 
-Version 0.011\_01
+=head1 VERSION
 
-# SYNOPSIS
+Version 0.011_01
 
-    use Test::FITesque::RDF;
-    my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
-    $suite->run_tests;
-    done_testing;
 
-See `tests/basic.t` for a full example.
+=head1 SYNOPSIS
 
-# DESCRIPTION
+  use Test::FITesque::RDF;
+  my $suite = Test::FITesque::RDF->new(source => $file, base_uri => $ENV{SOLID_REMOTE_BASE})->suite;
+  $suite->run_tests;
+  done_testing;
+
+See C<tests/basic.t> for a full example.
+
+=head1 DESCRIPTION
 
 The basic idea with these tests is to simplify reuse and formulation
 of fixture tables using the Resource Description Framework (RDF). It
 is in an early stage, but there are running tests in this module.
 
-This system is built on [Test::FITesque::RDF](https://metacpan.org/pod/Test::FITesque::RDF), which adds RDF fixture
-tables to [Test::FITesque](https://metacpan.org/pod/Test::FITesque).
+This system is built on L<Test::FITesque::RDF>, which adds RDF fixture
+tables to L<Test::FITesque>.
 
 Then, the idea is that modules such as this will provide a reusable
 implementation of certain tests, and that they can be adapted to
@@ -40,39 +47,51 @@ independently of the module, and modules can be installed easily so
 that they can be reused. Nevertheless, it is also natural to package
 these together, like it has been done in this package.
 
-# TEST MODULES
+=head1 TEST MODULES
 
 The tests will live in test modules, currently, this distribution contains
 
-- [Web::Solid::Test::Basic](https://metacpan.org/pod/Web::Solid::Test::Basic)
-=item \* [Web::Solid::Test::HTTPLists](https://metacpan.org/pod/Web::Solid::Test::HTTPLists)
+=over
+
+=item * L<Web::Solid::Test::Basic>
+
+=item * L<Web::Solid::Test::HTTPLists>
+
+=back
 
 Within these, there are test scripts in the form of subroutines
 containing subtests. These are then referenced from the fixture tables. 
 
-# BUGS
+
+
+
+
+
+=head1 BUGS
 
 Please report any bugs to
-[https://github.com/kjetilk/p5-web-solid-test-basic/issues](https://github.com/kjetilk/p5-web-solid-test-basic/issues).
+L<https://github.com/kjetilk/p5-web-solid-test-basic/issues>.
 
-# SEE ALSO
+=head1 SEE ALSO
 
-The [Solid Test Suite](https://github.com/solid/test-suite).
+This was primarily developed for the L<Solid Test Suite|https://github.com/solid/test-suite>.
 
-# AUTHOR
+=head1 AUTHOR
 
-Kjetil Kjernsmo <kjetilk@cpan.org>.
+Kjetil Kjernsmo E<lt>kjetilk@cpan.orgE<gt>.
 
-# COPYRIGHT AND LICENCE
+=head1 COPYRIGHT AND LICENCE
 
 This software is Copyright (c) 2019 by Inrupt Inc.
 
 This is free software, licensed under:
 
-    The MIT (X11) License
+  The MIT (X11) License
 
-# DISCLAIMER OF WARRANTIES
+
+=head1 DISCLAIMER OF WARRANTIES
 
 THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
 MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
