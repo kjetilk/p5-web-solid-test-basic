@@ -1,7 +1,7 @@
 package Web::Solid::Test;
 
 our $AUTHORITY = 'cpan:KJETILK';
-our $VERSION   = '0.020';
+our $VERSION   = '0.021';
 
 1;
 
@@ -18,7 +18,7 @@ Web::Solid::Test - Solid Test Scripts
 
 =head1 VERSION
 
-Version 0.020
+Version 0.021
 
 
 =head1 SYNOPSIS

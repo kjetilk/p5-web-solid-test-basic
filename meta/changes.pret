@@ -1,5 +1,13 @@
 # This file acts as the project's changelog.
 
+`Web-Solid-Test 0.021 cpan:KJETILK`
+    issued  2020-03-20;
+    label   "Rename the distribution" ;
+    changeset [
+        dcs:versus `Web-Solid-Test 0.021 cpan:KJETILK`;
+	item [ rdfs:label "Another attempt at renaming the distribution."; a dcs:Change; ]
+    ] .
+
 `Web-Solid-Test 0.020 cpan:KJETILK`
     issued  2020-03-16;
     label   "Rename the distribution" ;
