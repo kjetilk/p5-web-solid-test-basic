@@ -1,5 +1,8 @@
 package Web::Solid::Test;
 
+use strict;
+use warnings;
+
 our $AUTHORITY = 'cpan:KJETILK';
 our $VERSION   = '0.021';
 
