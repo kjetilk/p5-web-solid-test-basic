@@ -1,3 +1,11 @@
+package Web::Solid::Test;
+
+our $AUTHORITY = 'cpan:KJETILK';
+our $VERSION   = '0.020';
+
+1;
+
+__END__
 
 =pod
 
